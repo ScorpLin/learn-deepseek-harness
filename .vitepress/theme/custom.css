@@ -1,0 +1,68 @@
+/* ---- 首屏层级：眉标 + 主标题 + 副标题 ---- */
+.VPHero .name {
+  background: none;
+  -webkit-text-fill-color: var(--vp-c-brand-1);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.VPHero .text {
+  font-size: 40px;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  max-width: 640px;
+}
+
+@media (min-width: 640px) {
+  .VPHero .text { font-size: 54px; }
+}
+
+@media (min-width: 960px) {
+  .VPHero .text { font-size: 62px; }
+}
+
+.VPHero .tagline {
+  max-width: 560px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--vp-c-text-2);
+}
+
+/* ---- 右侧架构图：给足高度，去掉默认圆底 ---- */
+.VPHero .image-container {
+  width: 340px;
+  height: auto;
+  min-height: 340px;
+}
+
+.VPHero .image-bg { display: none; }
+
+/* 移动端隐藏首屏架构图（标题优先） */
+@media (max-width: 959px) {
+  .VPHero .image { display: none; }
+}
+
+/* ---- 核心结论区域标题 ---- */
+.home-section {
+  max-width: 1152px;
+  margin: 40px auto 12px;
+  padding: 0 24px;
+}
+
+@media (min-width: 640px) {
+  .home-section { padding: 0 48px; }
+}
+
+@media (min-width: 960px) {
+  .home-section { padding: 0 64px; }
+}
+
+.home-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--vp-c-text-1);
+}
