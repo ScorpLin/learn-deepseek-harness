@@ -43,15 +43,13 @@
 
 .VPFeatures .item {
   border: 1px solid var(--vp-c-divider);
-  border-radius: 14px;
-  background: var(--vp-c-bg-soft);
-  transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  border-radius: 12px;
+  background: transparent;
+  transition: border-color .2s ease;
 }
 
 .VPFeatures .item:hover {
-  border-color: color-mix(in srgb, var(--dsh-brand) 55%, transparent);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px -12px rgba(77, 107, 254, 0.35);
+  border-color: color-mix(in srgb, var(--dsh-brand) 50%, transparent);
 }
 
 .VPFeatures .item .title {
