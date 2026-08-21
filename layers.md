@@ -2,29 +2,6 @@
 
 四层边界图。每层讲清「学完的标志」和「怎么自查」。
 
-<Reveal>
-```mermaid
-flowchart LR
-  subgraph L1["1 · 地基 s01-s04"]
-    direction TB
-    A["Cordis<br/>插件/事件/服务/配置"]
-  end
-  subgraph L2["2 · 主干 s05-s09"]
-    direction TB
-    B["seam + loop + log<br/>+ tools + prompt"]
-  end
-  subgraph L3["3 · 动手 s10-s14"]
-    direction TB
-    C["scope + adapter<br/>+ 写工具 + subagent + skill"]
-  end
-  subgraph L4["4 · 平台 s15-s19"]
-    direction TB
-    D["workflow + 权限<br/>+ goal/plan + 沙箱 + 扩展"]
-  end
-  A --> B --> C --> D
-```
-</Reveal>
-
 ## 每层的「学完标志」
 
 ### 1 · 地基（s01-s04）
