@@ -72,7 +72,13 @@ export default withMermaid(
       footer: { message: 'Learn DeepSeek Harness · 教学线', copyright: 'MIT' },
       lastUpdated: false,
     },
-    // 让 /docs 里的相对图片/链接也能解析
-    vite: {},
+    // mermaid 的 ESM chunk 用 `import fastdom from 'fastdom'` 默认导入，但
+    // fastdom@1.0.12 是纯 CJS（无 module/exports），必须让 Vite 预构建它做
+    // CJS→ESM 转换，否则浏览器报 "does not provide an export named 'default'"。
+    vite: {
+      optimizeDeps: {
+        include: ['fastdom', 'fastdom/extensions/fastdom-promised.js'],
+      },
+    },
   }),
 )
