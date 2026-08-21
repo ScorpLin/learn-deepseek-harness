@@ -52,6 +52,24 @@ const s08Steps = [
   { label: "tools/result 发出 → 监听器打印 [tool-logger] ...", detail: '结果物化时广播，早于 execute 的 promise 解析', color: '#34d399' },
   { label: '调用方收到 result', detail: '执行管线完整走完', color: '#34d399' },
 ]
+
+const s04Steps = [
+  { label: 'Loader 读 cordis.yml，条目带 config', detail: 'targets: [alpha, beta]，greeting 省略', color: '#38bdf8' },
+  { label: 'schemastery 校验 config', detail: 'greeting 用默认值 Hello 补齐', code: "Schema.string().default('Hello')", color: '#38bdf8' },
+  { label: 'apply(ctx, config) 收到完整配置', detail: 'config.greeting 已是 Hello', color: '#34d399' },
+  { label: '输出 Hello, alpha! / Hello, beta!', detail: '配置生效', color: '#34d399' },
+  { label: '（改坏）targets 喂成字符串', detail: '不是数组，schema 校验失败', code: "targets: 'not-an-array'", color: '#f87171' },
+  { label: 'ValidationError → fiber FAILED → exit 1', detail: '坏配置响亮失败，不是半初始化', color: '#f87171' },
+]
+
+const s16Steps = [
+  { label: '模型返回 tool/call { name:"bash" }', detail: '想执行一条命令', color: '#a78bfa' },
+  { label: 'tools/pre-execute（waterfall）被触发', detail: '权限门监听器收到 exec', color: '#38bdf8' },
+  { label: '权限门判断 isAllowed(exec)', detail: '允许则调 next()，拒绝则 return deny', color: '#38bdf8' },
+  { label: '若 return { kind:"deny" } → 短路', detail: '下游不执行，工具被拒', code: "return { kind: 'deny', reason: '...' }", color: '#f87171' },
+  { label: '若 return next() → 放行', detail: '继续 execute', color: '#34d399' },
+  { label: '审批(ask)：走 ctx.approval 由 answerer 回答', detail: '区别于普通提问 ask_user_question', color: '#fbbf24' },
+]
 </script>
 
 ## s01 · heartbeat（effect 生命周期）
@@ -83,6 +101,18 @@ const s08Steps = [
 对应 [s08 小作业](/docs/s08-tools)。
 
 <ExerciseDemo :steps="s08Steps" :interval="1300" />
+
+## s04 · 配置校验（坏配置响亮失败）
+
+对应 [s04 小作业](/docs/s04-config-and-loader)。
+
+<ExerciseDemo :steps="s04Steps" :interval="1200" />
+
+## s16 · 权限门（allow / deny / ask）
+
+对应 [s16 小作业](/docs/s16-permission-approval)。
+
+<ExerciseDemo :steps="s16Steps" :interval="1200" />
 
 ---
 

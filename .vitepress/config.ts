@@ -56,11 +56,13 @@ export default withMermaid(
           ['s07 Session Log', '/docs/s07-session-log'],
           ['s07a session-log 精读', '/docs/s07a-session-log-deep-read'],
           ['s08 Tools', '/docs/s08-tools'],
+          ['s08a tools 管线精读', '/docs/s08a-tools-deep-read'],
           ['s09 Prompt Assembly', '/docs/s09-prompt-assembly'],
         ]),
         stage('3 · 动手', [
           ['s10 Scope', '/docs/s10-scope'],
           ['s11 LLM Adapter', '/docs/s11-llm-adapter'],
+          ['s11a llm adapter 精读', '/docs/s11a-llm-adapter-deep-read'],
           ['s12 写一个工具', '/docs/s12-write-a-tool'],
           ['s13 Subagent', '/docs/s13-subagent'],
           ['s14 Skill', '/docs/s14-skill'],
