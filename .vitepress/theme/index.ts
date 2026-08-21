@@ -1,6 +1,5 @@
 import DefaultTheme from 'vitepress/theme'
 import type { Theme } from 'vitepress'
-import './custom.css'
 import AnimatedTimeline from './components/AnimatedTimeline.vue'
 import Reveal from './components/Reveal.vue'
 import ExerciseDemo from './components/ExerciseDemo.vue'
