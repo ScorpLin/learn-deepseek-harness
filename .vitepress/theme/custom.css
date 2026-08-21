@@ -1,0 +1,64 @@
+/* 首页精修：高端大气 */
+:root {
+  --dsh-brand: #4D6BFE;
+  --dsh-brand-2: #7DD3FC;
+}
+
+/* ---- Hero ---- */
+.VPHero .name {
+  background: linear-gradient(120deg, #4D6BFE 0%, #5B8DEF 48%, #7DD3FC 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.VPHero .text {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--vp-c-text-1);
+}
+
+.VPHero .tagline {
+  font-size: 1.08rem;
+  color: var(--vp-c-text-2);
+  max-width: 40rem;
+}
+
+.VPHero .image-container {
+  filter: drop-shadow(0 14px 34px rgba(77, 107, 254, 0.28));
+}
+
+.VPHero .image-bg {
+  background: radial-gradient(circle at 35% 30%, rgba(125, 211, 252, 0.22), transparent 65%);
+  border-radius: 50%;
+}
+
+/* ---- 特性卡片 ---- */
+.VPFeatures {
+  padding-top: 1.5rem;
+}
+
+.VPFeatures .item {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 14px;
+  background: var(--vp-c-bg-soft);
+  transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+
+.VPFeatures .item:hover {
+  border-color: color-mix(in srgb, var(--dsh-brand) 55%, transparent);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px -12px rgba(77, 107, 254, 0.35);
+}
+
+.VPFeatures .item .title {
+  font-weight: 700;
+}
+
+/* ---- 正文里的链接区块微调 ---- */
+.VPDoc .container {
+  max-width: 880px;
+}

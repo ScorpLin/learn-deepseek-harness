@@ -4,6 +4,9 @@ hero:
   name: Learn DeepSeek Harness
   text: 深入浅出，吃透这套 harness
   tagline: 模型负责推理，harness 给模型一个可工作的环境 —— 而这一切皆插件。
+  image:
+    src: /logo.svg
+    alt: DeepSeek Harness
   actions:
     - theme: brand
       text: 从主线开始
