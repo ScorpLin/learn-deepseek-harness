@@ -14,6 +14,8 @@ export default withMermaid(
     description: '深入浅出吃透 DeepSeek Harness',
     lang: 'zh-CN',
     cleanUrls: true,
+    // GitHub Pages 项目站部署在 /<repo>/ 子路径下，构建时用 BASE_PATH 注入；本地默认 '/'。
+    base: process.env.BASE_PATH || '/',
     themeConfig: {
       nav: [
         { text: '主页', link: '/' },
