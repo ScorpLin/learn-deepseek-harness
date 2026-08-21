@@ -54,7 +54,7 @@ Consumer 只依赖 Definition 的接口，不依赖具体 Provider。所以：
 | Subagent | `packages/subagent/subagent` | `spawn-in-process`、`fork-in-process`、`acp`、`codex`、`claude-code` | `tool-subagent` |
 | Sandbox | `packages/sandbox/` | bwrap/Landlock/Seatbelt | argv 包裹 |
 
-完整清单见官方 [capability-seams](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/capability-seams.md)。
+完整清单见官方 `deepseek-harness/docs/capability-seams.md`。
 
 ## 一个能力 = 完整设计三角色
 

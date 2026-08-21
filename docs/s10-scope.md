@@ -51,7 +51,7 @@ createAgent({
 ## 读源码
 
 - `packages/core/scope/` —— 作用域注册身份、分发载体、`Scope` 上下文。
-- 完整定义见官方 [subsystems/scope](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/scope.md) 和 [glossary](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/glossary.md)。
+- 完整定义见官方 `deepseek-harness/docs/subsystems/scope.md` 和 `deepseek-harness/docs/glossary.md`。
 
 ## 自测
 

@@ -1,6 +1,6 @@
 # Data Structures（核心数据结构）
 
-读到中途卡住时，回这里查「这些类型到底长什么样」。只列对理解主干最关键的结构，完整权威定义在官方 [subsystems](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/README.md) 各页。
+读到中途卡住时，回这里查「这些类型到底长什么样」。只列对理解主干最关键的结构，完整权威定义在官方 `deepseek-harness/docs/subsystems/README.md` 各页。
 
 ## Cordis 层（地基）
 

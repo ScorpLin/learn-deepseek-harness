@@ -65,7 +65,7 @@ export function apply(ctx: Context) {
 | bail | `ctx.bail(...)` | serial 的同步版 |
 | waterfall | `ctx.waterfall(...)` | around-middleware，可包装/短路（见下） |
 
-harness 的每个事件都在官方 [subsystems](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/README.md) 对应页文档化它的模式。
+harness 的每个事件都在官方 `deepseek-harness/docs/subsystems/README.md` 对应页文档化它的模式。
 
 ## waterfall：包装或短路
 

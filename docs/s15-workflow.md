@@ -47,7 +47,7 @@ workflow 脚本编排多个子 agent，靠「结构化子进程」强制输出�
 ## 读源码
 
 - `packages/workflow/` —— seam、worker 线程引擎、工具 Consumer。
-- 完整契约见官方 [subsystems/workflow](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/workflow.md)。
+- 完整契约见官方 `deepseek-harness/docs/subsystems/workflow.md`。
 
 ## 自测
 

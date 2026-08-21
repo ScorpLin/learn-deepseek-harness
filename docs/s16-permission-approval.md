@@ -25,7 +25,7 @@ waterfall 返回类型化决策，`agent/turn-stopping` 可以再引导一步。
 
 ## 一个权限门例子
 
-（来自官方 [extension-cookbook](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/cookbook/extension-cookbook.md)）
+（来自官方 `deepseek-harness/docs/cookbook/extension-cookbook.md`）
 
 ```ts
 export const name = 'permission-gate'
@@ -50,7 +50,7 @@ export function apply(ctx: Context) {
 
 - `packages/interaction/` —— approval seam、权限 preset、commands。
 - `packages/hooks/` —— hook 桥。
-- 完整契约见官方 [subsystems/approval](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/approval.md) 和 [subsystems/user-questions](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/user-questions.md)。
+- 完整契约见官方 `deepseek-harness/docs/subsystems/approval.md` 和 `deepseek-harness/docs/subsystems/user-questions.md`。
 
 ## 自测
 

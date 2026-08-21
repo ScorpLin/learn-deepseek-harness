@@ -96,7 +96,7 @@ pnpm install
 
 | 阶段 | 章节 | 主题 | 你会吃透什么 | 源码锚点 |
 |---|---|---|---|---|
-| 0 地图 | s00 | 架构总览 | 全系统地图、profiles/bundles、turn flow 一图流 | [docs/architecture.md](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/architecture.md) |
+| 0 地图 | s00 | 架构总览 | 全系统地图、profiles/bundles、turn flow 一图流 | `deepseek-harness/docs/architecture.md` |
 | 0 地图 | s00d | 章节顺序理由 | 为什么先 Cordis 后 agent | — |
 | 0 地图 | s00f | 代码阅读顺序 | 每章先开哪些文件 | `vendor/cordis/src/*.ts` |
 | **1 地基** | s01 | Cordis 地基 | 插件/context/effect/fiber 状态机 | `vendor/cordis/src/{context,fiber}.ts` |

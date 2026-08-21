@@ -1,6 +1,6 @@
 # Glossary
 
-教学用术语表。每个概念给出「一句话定义 + 它属于哪个阶段」，读到陌生词时回这里查。完整的官方术语见 [deepseek-harness/docs/glossary.md](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/glossary.md)。
+教学用术语表。每个概念给出「一句话定义 + 它属于哪个阶段」，读到陌生词时回这里查。完整的官方术语见 `deepseek-harness/docs/glossary.md`。
 
 ## 地基（Cordis）
 

@@ -33,7 +33,7 @@ skill 解决「通用能力太多，全塞进 prompt 会爆」的问题。所以
 ## 读源码
 
 - `packages/skill/` —— provider 注册表、local 实现、catalog/loader 工具。
-- 完整定义见官方 [subsystems/skills](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/skills.md)。
+- 完整定义见官方 `deepseek-harness/docs/subsystems/skills.md`。
 
 ## 自测
 

@@ -27,7 +27,7 @@ tool/call
   -> tool/result          (emit: 观察不可变的最终结果)
 ```
 
-选对点（官方 [adding-a-tool](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/cookbook/adding-a-tool.md) 给了选择规则）：
+选对点（官方 `deepseek-harness/docs/cookbook/adding-a-tool.md` 给了选择规则）：
 
 - **`tools/pre-execute`** —— 权限门、计划模式、沙箱策略在这里 deny/ask。返回 `deny` 就是拒绝调用。
 - **`tools/execute`** —— 需要包裹**实际派发生命周期**（超时/重试/指标）时用；只有 `exec.signal` 可替换。
@@ -77,7 +77,7 @@ export function apply(ctx: Context) {
 
 - `packages/core/tools/` —— `ToolDefinition` 全字段、schema DSL、`ToolExecution`/`ToolResult`、有守卫的执行管线。
 - 任意 `packages/tool/*`（如 `dsh-tool-bash`）—— 第一方工具的写实例。
-- 完整字段见官方 [subsystems/tools](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/tools.md)。
+- 完整字段见官方 `deepseek-harness/docs/subsystems/tools.md`。
 
 ## 自测
 
