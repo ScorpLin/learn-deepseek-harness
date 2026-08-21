@@ -2,6 +2,30 @@
 
 > **一句话**：DeepSeek Harness 的一切都是插件（plugin），而插件就是「一个通过 `apply(ctx)` 声明自己贡献了什么的函数」。先吃透这一句，后面 18 章才有地基。
 
+## 开始之前：先搞清两个仓库
+
+学这套课程，你手上要有**两个目录**，它们是**并列**的关系（不是谁包含谁）：
+
+```text
+你的某个目录/
+├── deepseek-harness/          ← 框架源码（被学习的东西）
+│   └── vendor/cordis/         ← Cordis 源码，例子 import 的就是它
+└── learn-deepseek-harness/    ← 本仓库（你正在读的课程 + 例子）
+    └── examples/01-first-plugin/
+```
+
+- **deepseek-harness**：DeepSeek Harness 框架本身的源码。你写插件时 `import ... from '@deepseek-ai/cordis'`，这个 `@deepseek-ai/cordis` **不在 npm 上**，而是 deepseek-harness 仓库里**自带（vendored）的一份源码**——所以跑例子必须要有它。
+- **learn-deepseek-harness**（本仓库）：你正在读的课程，`examples/` 里是每章例子的代码。
+
+**你要做的第一件事（只需一次）**：把 deepseek-harness 的依赖装好：
+
+```sh
+cd 你的/deepseek-harness     # 换成你机器上 deepseek-harness 的实际路径
+pnpm install
+```
+
+装完这一下，后面所有章节的例子就都能跑了。跑法见下一节。
+
 ## 是什么
 
 先看一个最小的插件。这是你能写出的、最完整的 Cordis 插件：
@@ -65,19 +89,30 @@ export class MyService extends Service {
 
 ## 怎么做：跑起来
 
-需要一个 `deepseek-harness` checkout（因为例子 import 它的 vendored Cordis）：
+前提：你已经装好了 deepseek-harness 的依赖（见上一节）。
+
+### 最简单：用 run.sh 一键跑
+
+本仓库根目录有个 `run.sh`，它会自动把例子拷进 deepseek-harness 的 tmp/ 再运行，你不用手动拼路径：
 
 ```sh
-# 在 deepseek-harness 里装好依赖
-cd deepseek-harness && pnpm install
-```
-
-然后在本仓库的 `examples/01-first-plugin/` 里（或任何目录）写上面的 `hello.ts` 和 `cordis.yml`，用 vendored 的极简启动器运行：
-
-```sh
-node --import tsx /path/to/deepseek-harness/vendor/cordis/bin.js
+cd learn-deepseek-harness     # 本仓库根目录
+./run.sh 01-first-plugin
 # 输出：hello from my first plugin
 ```
+
+如果 deepseek-harness 不在本仓库的上一级目录，用 `DSH_ROOT=/你的路径/deepseek-harness ./run.sh 01-first-plugin` 指定。
+
+### 手动跑（想理解机制时再看）
+
+先 `cd` 到例子目录 `examples/01-first-plugin/`，把上面的 `hello.ts` 和 `cordis.yml` 放进去，然后：
+
+```sh
+node --import tsx /你的路径/deepseek-harness/vendor/cordis/bin.js
+# 输出：hello from my first plugin
+```
+
+`/你的路径/` 换成你机器上 deepseek-harness 的实际位置。这条命令里的 `vendor/cordis/bin.js` 就是那个「极简启动器」——下一节读源码时会逐行讲它。
 
 **试着破坏它**：让 `apply` 抛异常，进程会响亮地失败（而不是静默跳过这个插件）：
 

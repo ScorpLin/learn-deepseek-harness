@@ -58,10 +58,18 @@
 
 ## 先决条件
 
-跑本仓库的例子，需要一份 `deepseek-harness` 源码 checkout（因为例子直接 `import` 它的 vendored Cordis 和 `packages/`）：
+学这套课程需要**两个并列的目录**（不是谁包含谁）：
+
+```text
+你的某个目录/
+├── deepseek-harness/       ← 框架源码（例子的依赖来源）
+└── learn-deepseek-harness/ ← 本仓库（课程 + 例子）
+```
+
+因为例子直接 `import` deepseek-harness 里 vendored（内置）的 Cordis 和 `packages/`，所以你得先有一份 deepseek-harness 源码并装好依赖（只需一次）：
 
 ```sh
-git clone https://github.com/deepseek-ai/deepseek-harness.git
+git clone https://github.com/deepseek-ai/deepseek-harness.git   # 若你本地已有，跳过这行
 cd deepseek-harness
 pnpm install
 ```
