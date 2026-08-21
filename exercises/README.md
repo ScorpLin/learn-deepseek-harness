@@ -25,7 +25,9 @@
 | s06 turn flow 时序图 | 对照 [s06 正文](../docs/s06-agent-loop.md) 的时序图 |
 | s07 反例 | 对照 [s07 正文](../docs/s07-session-log.md) 的铁律 |
 | s08 defineTool + deny 门 | [examples/05-tool](../examples/05-tool/README.md)，deny 门见 [answers/08-deny-gate.ts](answers/08-deny-gate.ts) |
-| s09 ~ s19（概念型） | 各章 `## 自测` + 正文「读源码」段 |
+| s09 ~ s19（概念型，s12/s16 除外） | 各章 `## 自测` + 正文「读源码」段 |
+| s12 写一个完整工具（编码型） | [examples/05-tool](../examples/05-tool/README.md) 的 `defineTool` 全字段结构 |
+| s16 permission-gate（编码型） | 本目录 [answers/08-deny-gate.ts](answers/08-deny-gate.ts) |
 
 ## 运行参考答案
 

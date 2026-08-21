@@ -27,7 +27,7 @@ export class StatsService extends Service {
 }
 ```
 
-注意 `interface Events` 的 `declare module` 合并（s01 讲过）——它声明事件名和监听器签名，让 `ctx.emit` / `ctx.on` 全类型化。命名约定 `namespace/action` 让扁平的事件命名空间可读。
+注意 `interface Events` 的 `declare module` 合并——和 s01 里给 `Context` 加属性是同一招，这里换成给 `Events` 加事件名。它声明事件名和监听器签名，让 `ctx.emit` / `ctx.on` 全类型化。命名约定 `namespace/action` 让扁平的事件命名空间可读。
 
 监听方：
 
@@ -94,6 +94,19 @@ export function apply(ctx: Context) {
   })
 }
 ```
+
+发起一次 waterfall 是这样调的——最后一个参数 `next` 就是**最内层的默认值**（没有任何监听器调 `next()` 时才执行）：
+
+```ts
+const result = await ctx.waterfall(
+  'demo/transform',
+  'hello',
+  async () => 'default',   // 最内层默认函数
+)
+console.log(result)          // HELLO
+```
+
+监听器按注册顺序**从外到内串成一条链**：第一个注册的监听器在最外层，`next()` 从外向内逐层委托，最后落到你传进来的默认函数；返回值再沿链从内向外逐层返回。
 
 走一遍第二个监听器短路的情形：监听器 1 先跑，调 `next()` 触发监听器 2；监听器 2 看到 `blocked` 直接 return（不调 `next()`），最内层默认函数永不执行，监听器 1 把替换消息转大写返回。
 

@@ -33,7 +33,7 @@ ctx.systemPrompt.section(() => ({
 
 ## 一个专家级扩展点：`system-prompt/assemble`
 
-`system-prompt/assemble` 是**协作式整体组装变换**——它的返回值是权威的，所以监听器作者要自己负责保留 Code Mode 和结构化输出协议的贡献。这是「专家级」扩展点，普通分节用 `section()` 就够了。
+`system-prompt/assemble` 是**协作式整体组装变换**——它的返回值是权威的，所以监听器作者要自己负责保留 Code Mode 和结构化输出协议的贡献。这里两个词首次出现，先定义：**Code Mode** = 让模型进入代码生成模式的那部分提示词；**结构化输出协议** = 让模型按 JSON schema 输出的约束。这是「专家级」扩展点，普通分节用 `section()` 就够了。
 
 ## 为什么「工具可见集」要和执行对齐
 
@@ -55,8 +55,8 @@ ctx.systemPrompt.section(() => ({
 
 ## 小作业
 
-1. **用 `ctx.systemPrompt.section()` 加一段带 `order` 的分节**，观察它在组装中的排序。
-   **达标标准**：能默写 section 的 `id / title / content / order` 四字段。
+1. **读 `packages/core/system-prompt` 源码**，说清 `order` 如何决定分节的排序（升序？降序？同 `order` 时谁先谁后）。
+   **达标标准**：能说清 `order` 的排序规则，并默写 section 的 `id / title / content / order` 四字段。
 2. 说清为什么过滤工具要用 `ctx.tools.restrict()` 而不是手改 prompt schema。
    **达标标准**：能说清「展示、查找、执行」三处对齐。
 ---

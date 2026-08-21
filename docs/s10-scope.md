@@ -22,14 +22,22 @@ scope 解决两个问题：
 
 （官方 glossary，务必读准这两个概念的区别）
 
-- **restriction（限制）** —— `tools.restrict` 过滤**全局**工具集（按交集组合）。被过滤掉的全局工具，**在 prompt 里不可见且拒绝执行**，和「不存在」不可区分。
+- **restriction（限制）** —— `tools.restrict` 过滤**全局**工具集。多个 restriction 叠加时**取交集**（越收越窄）。被过滤掉的全局工具，**在 prompt 里不可见且拒绝执行**，和「不存在」不可区分。
 - **scope-local registration（作用域局部注册）** —— 在 restriction 过滤**之后**合并进来。
 
 所以组合顺序是：先 restriction 过滤全局集，再合并 scope-local。
 
 ## setup window（创建槽）
 
-创建 agent 时有一个 `CreateAgentOptions.setup` 槽：作用域和 agent 对象已存在、但 agent/session 尚未发布、`agent/session-start` 未触发、首个 prompt 未组装之前。**setup 只注册，不驱动 agent**。
+创建 agent 时有一个 `CreateAgentOptions.setup` 槽：作用域和 agent 对象已存在、但 agent/session 尚未发布、`agent/session-start` 未触发、首个 prompt 未组装之前。**setup 只注册，不驱动 agent**：
+
+```ts
+createAgent({
+  setup: (ctx) => {
+    ctx.tools.register(/* 只在当前 agent 作用域内可见的工具 */)
+  },
+})
+```
 
 ## 不继承，用 lineage 表达
 

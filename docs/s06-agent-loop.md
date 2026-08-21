@@ -76,4 +76,6 @@ loop 本身是一个插件（`ctx.agentLoop`），实现 `Agent` 接口（`ctx.a
    **达标标准**：能说清 round 为什么「不属于每个 turn 都计数」。
 ---
 
+**源码精读**：[s06a · agent-loop 源码精读](s06a-agent-loop-deep-read.md) —— 逐文件追一遍 turn 循环的真实实现。
+
 **下一章**：[s07 · Session Log](s07-session-log.md) —— loop 写的这个 log，为什么是「模型上下文的唯一来源」。

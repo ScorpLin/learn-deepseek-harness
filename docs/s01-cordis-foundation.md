@@ -156,6 +156,15 @@ export function apply(ctx: Context) {
 }
 ```
 
+要卸载一个子插件，`ctx.plugin(...)` 返回它的 fiber，调用 `fiber.dispose()` 就触发卸载：
+
+```ts
+const fiber = ctx.plugin(heartbeat)   // 挂子插件，拿到它的 fiber
+setTimeout(async () => {
+  await fiber.dispose()               // 触发卸载，heartbeat 的 effect 逆序撤销
+}, 700)
+```
+
 规则：
 
 - **effect 的 body 在加载时执行，返回的 disposer 在卸载时执行**——你永远不用手动调 disposer。
@@ -179,7 +188,7 @@ export function apply(ctx: Context) {
 
 动手写，**先不看答案**，做完再对照 [examples/01-first-plugin](../examples/01-first-plugin/README.md) 和 [exercises/](../exercises/README.md)。
 
-1. **写一个 heartbeat 插件**：用 `ctx.effect()` 包一个 `setInterval`，返回 `clearInterval` 的 disposer；再写第二个插件用 `ctx.plugin(heartbeat)` 挂它，700ms 后 `dispose()`。观察控制台按顺序出现 `tick`×N、`cleaned up`。
+1. **写一个 heartbeat 插件**：用 `ctx.effect()` 包一个 `setInterval`，返回 `clearInterval` 的 disposer；再写第二个插件用 `ctx.plugin(heartbeat)` 挂它，700ms 后 `dispose()`。观察控制台按顺序出现 `tick`×N、`heartbeat cleaned up`。
    **达标标准**：能默写 `ctx.effect` 的「body 返回 disposer」两段，说清 body 何时执行、disposer 何时执行。
 2. **让 `apply` 抛错**，跑一遍，确认进程是「响亮失败」而不是静默跳过。
    **达标标准**：能说清为什么「插件加载失败必须响亮」是 harness 的原则。

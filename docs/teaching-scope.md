@@ -43,7 +43,7 @@ Cordis（底座）→ 事件/服务（神经）→ capability seam（可替换�
 
 | 阶段 | 范围 | 学完的标志 |
 |---|---|---|
-| **1 地基** s01-s04 | Cordis：插件/事件/服务/配置 | 能读懂 `examples/headless-agent/cordis.yml` 每一行 |
+| **1 地基** s01-s04 | Cordis：插件/事件/服务/配置 | 能读懂 `deepseek-harness` checkout 里 `examples/headless-agent/cordis.yml` 每一行 |
 | **2 主干** s05-s09 | seam + loop + log + tools + prompt | 能手绘 turn flow 时序图，说清「模型可见⟺已记录」 |
 | **3 动手** s10-s14 | scope + adapter + 写工具 + subagent + skill | 能从零写一个带执行管线的最小工具 |
 | **4 平台** s15-s19 | workflow + 权限 + goal/plan + 沙箱 + 扩展 | 能设计一条新的 capability seam 并解释三角色 |

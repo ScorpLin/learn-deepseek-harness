@@ -29,7 +29,7 @@ flowchart LR
 
 ### 1 · 地基（s01-s04）
 
-- 读得懂 `examples/headless-agent/cordis.yml` 的每一行
+- 读得懂 `deepseek-harness` checkout 里 `examples/headless-agent/cordis.yml` 的每一行
 - 能写出插件 + `Service` + `ctx.on` + `Config`
 - **自查**：插件没反应时，第一反应是查 fiber 是不是 PENDING
 

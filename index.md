@@ -9,15 +9,15 @@ hero:
       text: 从主线开始
       link: /timeline
     - theme: alt
-      text: 直接读第一章
-      link: /docs/s01-cordis-foundation
+      text: 直接看架构地图
+      link: /docs/s00-architecture-overview
 features:
   - title: 先框架，后 agent
     details: 从 Cordis 地基（插件/事件/服务/配置）开始，而不是从 agent loop 开始——因为 loop 本身也是个插件。
   - title: 一条主线，四个阶段
     details: 地图 → 地基 → 主干 → 动手 → 平台。每章「是什么 → 为什么 → 怎么做 → 读源码 → 自测」。
   - title: 贴近真实源码
-    details: 每章指到 vendor/ 和 packages/ 的具体文件，s05a 带你逐行精读 shell seam。
+    details: 每章指到 vendor/ 和 packages/ 的具体文件，另有 s05a/s06a/s07a/s08a/s11a 五篇逐行源码精读。
 ---
 
 ## 三个入口，随你选
@@ -43,4 +43,4 @@ features:
 
 ## 可运行例子
 
-阶段一（s01-s04）和工具章有 `./run.sh <name>` 一键运行的例子（无需 API key），见仓库 [examples/](https://github.com/../tree/main/examples) 目录。
+阶段一（s01-s04）、s05（capability seam → `examples/06-seam`）和工具章（s08/s12 → `examples/05-tool`）都有 `./run.sh <name>` 一键运行的例子（无需 API key），见仓库 [examples/](examples/01-first-plugin/README.md) 目录。

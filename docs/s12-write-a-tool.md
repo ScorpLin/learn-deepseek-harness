@@ -29,6 +29,8 @@ ctx.tools.register(defineTool({
 }))
 ```
 
+> `execute` 可接收第二个参数 `ctx`（当前上下文），用不到时可以省略——s08 的最小例子就是只写 `execute(args)`。
+
 三个关注点分开：
 
 - `output.schema` —— 模型看到的返回值契约（给模型）。

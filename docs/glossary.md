@@ -22,7 +22,7 @@
 - **bundle（包）** — Cordis 配置行 + 挂载代码的分发格式。
 - **turn（回合）** — 一次「排空已接纳输入」的循环，模型和工具都停下后结束。
 - **step（步）** — 一次模型请求 + 它引发的工具执行；一个 turn 含零或多步。
-- **round（轮）** — 外层策略的一次迭代（如 goal round、Ralph round），不属于每个 turn 都计数。
+- **round（轮）** — 外层策略的一次迭代（如 goal round、Ralph round）。并非每个 turn 都会计一轮；只有外层策略主动推进时才计。
 - **session log（会话日志）** — append-only 的 `SessionEvent` 流，是模型上下文的唯一来源。铁律：**模型可见 ⟺ 已记录**。
 - **scope（作用域）** — 每个 agent 的独立注册空间；作用域注册不继承到子 agent。
 - **shadowing（影子覆盖）** — most-specific-wins：作用域内同名工具/分节/变量替换全局同名者。

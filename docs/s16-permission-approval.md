@@ -4,7 +4,7 @@
 
 ## 是什么
 
-`packages/interaction/` 是「人机协作平面」：approval/interaction seam、权限 preset、commands、ask-user 工具。`packages/hooks/` 是 hook 桥 + Claude Code/Codex 的 wire 协议库。
+`packages/interaction/` 是「人机协作平面」，含四类能力：**approval/interaction seam**（审批与交互的服务契约）、**权限 preset**（预置的 allow/deny 策略）、**commands**（斜杠命令）、**ask-user 工具**（模型主动问用户的工具）。`packages/hooks/` 是 hook 桥（把 hook 配置映射到扩展点）+ Claude Code/Codex 的 wire 协议库。
 
 权限门的本质（s02 + s08 的组合）：`tools/pre-execute` 是一个 waterfall，一个策略监听器可以在「自己拥有决策」时**返回而不调 `next()`**（veto）。这就是「允许 / 拒绝 / ask」的决策点。
 
@@ -41,7 +41,7 @@ export function apply(ctx: Context) {
 
 ## 审批 vs 普通提问
 
-- **审批（approval）** —— 权限门返回 `ask`，走 `ctx.approval` seam，由 answerer 回答。
+- **审批（approval）** —— 权限门返回 `ask`，走 `ctx.approval` seam，由 **answerer**（负责给出审批答案的组件/服务）回答。
 - **普通用户提问** —— 单独的模型工具 `ask_user_question`（UI-backed）。
 
 两者不同：一个是「执行前的门」，一个是「模型主动问用户」。

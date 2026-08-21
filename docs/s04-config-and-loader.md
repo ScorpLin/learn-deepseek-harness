@@ -108,7 +108,7 @@ dsh --profile web --dump-config
 动手写，先不看 [examples/04-config](../examples/04-config/README.md)。
 
 1. **写带 `Config` schema 的插件**：`interface Config` + `export const Config: Schema<Config>`（Schemastery），字段 `greeting`（默认 Hello）+ `targets`（默认 ['world']）。
-   **达标标准**：能默写「同名 interface + const 声明合并」这一形态，说清它为什么既是类型又是运行时校验器。
+   **达标标准**：能默写「同名类型 + 值共存」这一形态（`interface Config` 是类型、`const Config` 是运行时 schema），说清它为什么既是类型又是运行时校验器。
 2. **喂一个坏配置**（`targets: 'not-an-array'`），确认 `ValidationError` + exit 1。
    **达标标准**：能说清「坏配置响亮失败」和「半初始化启动」的区别。
 ---

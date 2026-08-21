@@ -63,7 +63,7 @@ export function apply(ctx: Context) {
 }
 ```
 
-区分：`ctx.<name>` 只用于**声明的注入**（property 代理是拓扑敏感的）；严格的可选读取用 `ctx.get(name)`。
+区分：`ctx.<name>` 假定该服务已注入（依赖就绪后才安全访问）；要读一个可有可无的服务，用 `ctx.get(name)`。
 
 ## 命名
 

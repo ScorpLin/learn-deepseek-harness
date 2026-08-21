@@ -46,4 +46,6 @@
 2. 说清「换模型 = 改配置，不改 loop」建立在 s05 的哪条机制上。
 ---
 
+**源码精读**：[s11a · llm adapter 源码精读](s11a-llm-adapter-deep-read.md) —— 逐文件追一遍 adapter 契约。
+
 **下一章**：[s12 · 写一个工具](s12-write-a-tool.md) —— 把 s05+s08 用起来，从零写一个带执行管线的真工具。

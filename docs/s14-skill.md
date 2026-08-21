@@ -12,13 +12,23 @@
 
 一个 skill 是「一套可复用的任务化指令」，比如「怎么在这个仓库写文档」。模型需要时通过 `skill` 工具加载，**内容 `inject()` 进上下文**（s06 的 `agent.inject()`）。
 
+两个阶段的结构（也是渐进披露的两层）：
+
+```ts
+// SkillSummary —— 目录摘要：模型先看到这层，判断要不要加载
+{ name: 'write-docs', description: '按仓库规范写文档' }
+
+// SkillDefinition —— 完整定义：模型确认需要后才加载的正文
+{ summary: { name: 'write-docs', description: '按仓库规范写文档' }, content: '…完整指令正文…' }
+```
+
 ## 为什么：按需加载，不常驻
 
 skill 解决「通用能力太多，全塞进 prompt 会爆」的问题。所以它是**渐进披露**（progressive disclosure）：目录先给模型一个**摘要**（`SkillSummary`），模型判断需要哪个，再加载**完整定义**（`SkillDefinition`）。
 
-## 与 s12「渐进披露」工具的关系
+## 渐进披露（首次引入）
 
-s05/s08 里提过 tool 的渐进披露（替换 scoped `ctx.tools.restrict()` 注册来改变可见集）。skill 是同一思想在「指令」上的应用：目录在会话前缀，完整内容按需注入。
+**渐进披露（progressive disclosure）是这里首次引入的概念**：先给模型一个**目录摘要**（只列每个 skill 的名字和简介），模型判断需要哪个后，再按需加载**完整定义**。skill 把这一思想用在「指令」上：目录放会话前缀，完整内容按需 `inject()`。
 
 ## 读源码
 

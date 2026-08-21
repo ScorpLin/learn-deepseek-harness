@@ -12,7 +12,7 @@
 
 > **一切皆插件（everything is a plugin）。**
 
-模型适配器、工具注册表、会话日志、甚至 agent 循环本身，全都是插件。没有「特权核心」可以打补丁——你要扩展它，就是往旁边再挂一个插件。这套思想的底层框架叫 **Cordis**（vendored 在 `vendor/` 里），所以**整个学习路线从 Cordis 开始，而不是从 agent 开始**。
+模型适配器、工具注册表、会话日志、甚至 agent 循环本身，全都是插件。没有「特权核心」可以打补丁——你要扩展它，就是往旁边再挂一个插件。这套思想的底层框架叫 **Cordis**（vendored 在 `vendor/` 里——即把 Cordis 源码直接拷进仓库的目录），所以**整个学习路线从 Cordis 开始，而不是从 agent 开始**。
 
 ## 这个仓库真正在教什么
 
@@ -104,12 +104,17 @@ pnpm install
 | 1 地基 | s03 | 服务与依赖注入 | Service/inject/ctx.get、依赖驱动加载 | `vendor/cordis/src/{service,registry}.ts` |
 | 1 地基 | s04 | 配置与 Loader | cordis.yml/Config schema/profile/bundle | `vendor/loader/` `packages/boot/` |
 | **2 主干** | s05 | Capability Seam | Definition/Provider/Consumer 三角色 | `packages/shell/` |
+| 2 主干 | s05a | shell seam 源码精读 | 逐文件追 Definition→Provider→Consumer | `packages/shell/` |
 | 2 主干 | s06 | Agent Loop | turn/step/round、一步一模型的时序 | `packages/core/agent-loop/` |
+| 2 主干 | s06a | agent-loop 源码精读 | 逐文件追 turn 循环实现 | `packages/core/agent-loop/` |
 | 2 主干 | s07 | Session Log | 模型可见⟺已记录、deriveMessages | `packages/core/session/` |
+| 2 主干 | s07a | session-log 源码精读 | 逐文件追 log 派生 | `packages/core/session/` |
 | 2 主干 | s08 | Tools | ToolDefinition、pre→execute→post→result 管线 | `packages/core/tools/` |
+| 2 主干 | s08a | tools 管线源码精读 | 逐文件追工具执行管线 | `packages/core/tools/` |
 | 2 主干 | s09 | Prompt Assembly | section 分节、tool schema 注入 | `packages/core/system-prompt/` |
 | **3 动手** | s10 | Scope | 每 agent 注册空间、shadowing | `packages/core/scope/` |
 | 3 动手 | s11 | LLM Adapter | LlmAdapter seam、stream 协议 | `packages/llm/` |
+| 3 动手 | s11a | llm adapter 源码精读 | 逐文件追 adapter 契约 | `packages/llm/llm/` |
 | 3 动手 | s12 | 写一个工具 | defineTool、presentation/execute 全流程 | `packages/tool/*` `packages/fs/` |
 | 3 动手 | s13 | Subagent | 委派 seam、provider 注册表 | `packages/subagent/` |
 | 3 动手 | s14 | Skill | 目录加载、按需注入、catalog | `packages/skill/` |
@@ -121,8 +126,8 @@ pnpm install
 
 ## 可运行例子
 
-- **独立可运行例子**（`examples/01-first-plugin` ~ `05-tool`）：阶段一（s01-s04）的 Cordis 地基，以及 s08/s12 的「写工具」，都有 `./run.sh <name>` 一键运行的例子，无需 API key。
-- **源码精读章**（s05-s07、s09-s11、s13-s19）：这些章讲的是真实 harness 能力（seam/loop/log/adapter/subagent…），它们的「例子」就是**读 `packages/` 里的真实源码**——按 [s00f · 代码阅读顺序](docs/s00f-code-reading-order.md) 逐包追 Definition → Provider → Consumer。
+- **独立可运行例子**（`examples/01-first-plugin` ~ `06-seam`）：阶段一（s01-s04）的 Cordis 地基、s05 的「capability seam」（→ `examples/06-seam`）、s08/s12 的「写工具」（→ `examples/05-tool`），都有 `./run.sh <name>` 一键运行的例子，无需 API key。
+- **源码精读章**（s06-s07、s09-s11、s13-s19，另有 s05a/s06a/s07a/s08a/s11a 五篇逐行精读）：这些章讲的是真实 harness 能力（loop/log/tools/adapter/subagent…），它们的「例子」就是**读 `packages/` 里的真实源码**——按 [s00f · 代码阅读顺序](docs/s00f-code-reading-order.md) 逐包追 Definition → Provider → Consumer。
 
 `run.sh` 会把选中的例子拷贝进 `deepseek-harness/tmp/` 再运行（原因见「先决条件」）。
 
@@ -132,13 +137,13 @@ pnpm install
 learn-deepseek-harness/
 ├── README.md                  # 你正在读的入口 + 路线图
 ├── run.sh                     # 一键运行例子（拷贝进 harness tmp/ 再跑）
-├── docs/                      # 课程正文（s00 地图 + s01-s19 章节 + s05a 精读）
+├── docs/                      # 课程正文（s00 地图 + s01-s19 章节 + 5 篇源码精读）
 │   ├── s00-architecture-overview.md
 │   ├── s00d-chapter-order-rationale.md
 │   ├── s00f-code-reading-order.md
 │   ├── glossary.md / teaching-scope.md / data-structures.md / entity-map.md
 │   ├── s01-cordis-foundation.md ... s19-extensions.md
-│   └── s05a-shell-seam-deep-read.md
+│   └── s05a/s06a/s07a/s08a/s11a 五篇源码精读（*-deep-read.md）
 ├── examples/                  # 每章的可运行最小例子（01-06）
 │   ├── 01-first-plugin/ ... 06-seam/
 │   └── ...

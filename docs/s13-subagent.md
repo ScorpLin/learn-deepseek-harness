@@ -23,7 +23,7 @@ subagent 是「把大任务拆给独立上下文」的机制。两个关键点�
 
 ## 一个关键拆分：start-time vs runtime 能力
 
-官方 [subsystems/subagent](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/subagent.md) 强调 start-time-vs-runtime 的能力拆分。读 provider 实现时盯住：哪些能力在**启动时**给子 agent，哪些在**运行时**才提供——这个拆分决定委派的隔离边界。
+官方 [subsystems/subagent](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/subagent.md) 强调 start-time-vs-runtime 的能力拆分。读 provider 实现时盯住：哪些能力在**启动时**给子 agent，哪些在**运行时**才提供——这个拆分决定委派的隔离边界。举例：**start-time** 能力是启动子 agent 时作为参数直接传进去的（如初始 prompt、隔离配置）；**runtime** 能力是子 agent 跑起来后，通过事件或工具才注入的（如某个中途才出现的服务）。前者在子 agent 出生时就固定，后者可以随运行变化。
 
 ## 读源码
 

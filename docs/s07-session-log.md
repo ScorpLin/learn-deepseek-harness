@@ -27,7 +27,7 @@ log 是「模型看到的上下文」的 source of truth：
 
 因为「模型可见 ⟺ 已记录」，所以**任何新的模型可见输入都要求新增一个 session event**：扩展 `SessionEventMap`，并从 log 渲染它。不能「绕过 log 直接把东西塞给模型」——那样模型看到了，但 log 重建不出来，违反了铁律。
 
-这也解释了为什么一个 `SessionEventMap` 成员「默认读时必需」：不知道这个事件类型的构建，会拒绝读 log，除非事件带信封上的 `ignorable: true`（机制见官方 [architecture](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/architecture.md#session-log)）。
+这也解释了为什么一个 `SessionEventMap` 成员「默认读时必需」：读到不认识的事件类型时，构建默认**拒绝读整条 log**（宁可失败，也不静默丢数据）。如果某个事件允许「读不懂就安全跳过」，可以在它的**外层包装字段（信封）**上标 `ignorable: true`（机制见官方 [architecture](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/architecture.md#session-log)）。
 
 ## 两个关键事件族
 
@@ -78,5 +78,7 @@ turn/end
 2. 说清 `assistant/chunk` 和 `assistant/message` 的分工。
    **达标标准**：能说清「chunk 保真回放、message 供投影」。
 ---
+
+**源码精读**：[s07a · session-log 源码精读](s07a-session-log-deep-read.md) —— 逐文件追一遍 log 的真实实现。
 
 **下一章**：[s08 · Tools](s08-tools.md) —— 模型的「手」，以及它背后那条有守卫的执行管线。

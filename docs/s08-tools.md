@@ -71,7 +71,7 @@ export function apply(ctx: Context) {
 }
 ```
 
-注意每个模式都是前几章的：`inject: ['tools']`（s03）、`ctx.tools.register` 的 disposer 自动挂到插件（s01）、`CallId` 是 branded id（s07 的约定）。
+注意每个模式都是前几章的：`inject: ['tools']`（s03）、`ctx.tools.register` 的 disposer 自动挂到插件（s01）、`CallId` 是 branded id（见 data-structures.md）。
 
 ## 读源码
 
@@ -97,5 +97,7 @@ export function apply(ctx: Context) {
 2. **加一个 `tools/pre-execute` 监听器返回 `{ kind: 'deny' }`**，看调用如何被拒。
    **达标标准**：能默写管线四点的顺序和各自场景（pre-execute 权限门 / execute 包裹 / post-execute 变换 / result 只观察）。
 ---
+
+**源码精读**：[s08a · tools 管线源码精读](s08a-tools-deep-read.md) —— 逐文件追一遍工具执行管线。
 
 **下一章**：[s09 · Prompt Assembly](s09-prompt-assembly.md) —— 模型的「嘴」，怎么从稳定规则 + 运行时状态拼出输入。

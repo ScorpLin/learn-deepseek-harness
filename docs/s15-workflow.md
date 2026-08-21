@@ -10,7 +10,25 @@
 - **engine** —— worker 线程引擎；
 - **Consumer** —— `workflow` 工具（还有 `ralph` 工具，见下）。
 
-workflow 脚本编排多个子 agent，结构化子进程强制输出（scoped prompt/tool 注册 + 单调工具守卫 + 最终 `tools/result` 提交）。
+workflow 脚本编排多个子 agent，靠「结构化子进程」强制输出。三个机制各是一件事：
+
+- **结构化子进程** —— 用受限的 prompt/工具集跑一个子 agent；
+- **单调工具守卫** —— 子进程只能用固定的一套工具，不能再注册新工具；
+- **最终结果** —— 通过 `tools/result` 提交，而不是任意返回。
+
+脚本自己的身份是一份 `meta`（`name` / `description` / `phases`）：
+
+```ts
+// meta —— workflow 脚本的身份标识
+{
+  name: 'audit-files',        // 短横线命名的脚本名
+  description: '多文件审计',   // 一句话说明这个 workflow 干什么
+  phases: [                   // 可选的进度分组
+    { title: 'collect', detail: '收集待审计文件' },
+    { title: 'verify', detail: '核对结果' },
+  ],
+}
+```
 
 ## 为什么：单 agent 内核长成平台
 

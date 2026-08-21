@@ -7,10 +7,10 @@
 `packages/goal/` 拥有同会话目标：
 
 - **goal** —— 附在已有 session 上的一个持久完成目标，带 revisioned `active / paused / blocked / complete` 阶段 + goal-round 上限。**是状态，不是 scheduler、不是独立会话**——session log 仍是它的真理之源。
-- **goal round** —— 当前目标接纳的一轮延续。同会话 driver 把它物化成一个 goal-sourced turn（零到多步）。无关的人类 turn 不消耗 goal-round 上限。
-- **goal activation** —— 进程本地的「允许再接纳一轮」权限：`armed` / `disarmed`。**刻意不在持久回放里**，所以 resume/fork 需要后人来授权的 resume 变更。
+- **goal round** —— 当前目标接纳的一轮延续。同会话 driver 把它物化成一个 goal-sourced turn（一个由当前 goal 发起、而非普通用户消息发起的 turn，零到多步）。无关的人类 turn 不消耗 goal-round 上限。
+- **goal activation** —— 进程本地的「允许再接纳一轮」权限：`armed` / `disarmed`。**刻意不在持久回放里**，所以 resume/fork 需要后续操作者（接手方）来授权的 resume 变更。
 
-`ctx.goals` 拥有持久状态，`dsh-goal-round-driver` 通过公开 `Agent` 调度同会话轮次，command/tool producer 分别暴露人类/模型控制。
+`ctx.goals` 拥有持久状态，`dsh-goal-round-driver` 通过公开 `Agent` 调度同会话轮次，command/tool 两个入口分别暴露人类/模型控制。
 
 ## Plan
 
