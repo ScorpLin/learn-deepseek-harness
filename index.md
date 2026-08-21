@@ -17,13 +17,6 @@ hero:
     - theme: alt
       text: GitHub
       link: https://github.com/ScorpLin/learn-deepseek-harness
-features:
-  - title: Model
-    details: 负责理解、推理和决策。
-  - title: Harness
-    details: 负责提供工具、上下文、状态和执行环境。
-  - title: Agent
-    details: 把模型和 Harness 组合成可持续运行的任务系统。
 ---
 
 ## 三条学习路径
