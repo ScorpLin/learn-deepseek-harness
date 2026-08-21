@@ -1,4 +1,5 @@
 <script setup>
+import { withBase } from 'vitepress'
 // 动态主线：章节节点按顺序逐个点亮，悬停高亮，点击跳转到对应章节。
 const raw = [
   { name: '0 · 地图', color: '#64748b', chapters: [
@@ -56,7 +57,7 @@ function delay(n) { return (n * 85) + 120 + 'ms' }
       </div>
       <ol class="chapters">
         <li v-for="ch in stage.chapters" :key="ch.id" class="chapter" :style="{ '--c': stage.color, '--d': delay(ch.n) }">
-          <a :href="'/docs/' + ch.id" class="node">
+          <a :href="withBase('/docs/' + ch.id)" class="node">
             <span class="dot"></span>
             <span class="meta">
               <span class="label">{{ ch.label }}</span>
