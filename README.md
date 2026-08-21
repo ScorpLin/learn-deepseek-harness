@@ -174,3 +174,5 @@ npm run dev       # http://127.0.0.1:5173
 ## License
 
 MIT
+
+> 在线预览：https://scorplin.github.io/learn-deepseek-harness/
