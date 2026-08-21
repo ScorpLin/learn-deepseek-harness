@@ -2,9 +2,9 @@
 import { withBase } from 'vitepress'
 
 const entries = [
-  { n: '01', title: 'Timeline', desc: '从代码演进看 Harness 如何形成', link: '/timeline' },
-  { n: '02', title: 'Layers', desc: '从四个层次理解系统结构', link: '/layers' },
-  { n: '03', title: 'Compare', desc: '看不同 Agent Harness 的设计差异', link: '/compare' },
+  { n: '01', title: '主线 Timeline', desc: '一条线看全 19 章 + 地图 + 源码精读', link: '/timeline' },
+  { n: '02', title: '四阶段 Layers', desc: '每阶段「学完的标志」和怎么自查', link: '/layers' },
+  { n: '03', title: '相邻对比 Compare', desc: '看相邻两章「升级了什么」', link: '/compare' },
 ]
 </script>
 
