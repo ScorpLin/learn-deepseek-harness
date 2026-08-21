@@ -45,3 +45,14 @@
   .VPHero .image { display: none; }
 }
 
+/* 首页正文第一个 h2 去掉顶部横线（删除核心结论后，学习路径上方遗留的分隔线） */
+.VPHome .vp-doc h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+/* 首页正文放宽，让三张入口卡片更宽 */
+.VPHome .vp-doc.container {
+  max-width: 1440px;
+}
+
