@@ -120,7 +120,10 @@ pnpm install
 
 ## 可运行例子
 
-每个章节在 [examples/](examples/) 下有对应目录，各自 `README` 里写明运行命令。阶段一的例子无需 API key。
+- **独立可运行例子**（`examples/01-first-plugin` ~ `05-tool`）：阶段一（s01-s04）的 Cordis 地基，以及 s08/s12 的「写工具」，都有 `./run.sh <name>` 一键运行的例子，无需 API key。
+- **源码精读章**（s05-s07、s09-s11、s13-s19）：这些章讲的是真实 harness 能力（seam/loop/log/adapter/subagent…），它们的「例子」就是**读 `packages/` 里的真实源码**——按 [s00f · 代码阅读顺序](docs/s00f-code-reading-order.md) 逐包追 Definition → Provider → Consumer。
+
+`run.sh` 会把选中的例子拷贝进 `deepseek-harness/tmp/` 再运行（原因见「先决条件」）。
 
 ## 目录结构
 
