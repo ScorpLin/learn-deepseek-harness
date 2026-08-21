@@ -38,7 +38,7 @@
 ./run.sh 01-first-plugin   # 例子即答案
 ```
 
-`answers/` 里的 `.ts` 是「换个写法的参考答案」，可直接读、可拷进 `deepseek-harness/tmp/` 手动跑。
+`answers/` 里的 `.ts` 是「换个写法的参考答案」，可直接读，或拷进对应例子目录用 `node --import tsx ../../vendor/cordis/bin.js` 手动跑。
 
 ## 达标标准的含义
 

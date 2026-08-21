@@ -14,7 +14,12 @@
     "dayjs": "^1.11.23",
     "debug": "^4.4.3",
     "mermaid": "^11.16.0",
+    "tsx": "^4.23.12",
     "vitepress": "^1.6.4",
     "vitepress-plugin-mermaid": "^2.0.17"
+  },
+  "dependencies": {
+    "@standard-schema/spec": "^1.1.0",
+    "js-yaml": "^4.2.0"
   }
 }

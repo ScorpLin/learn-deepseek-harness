@@ -58,29 +58,22 @@
 
 ## 先决条件
 
-学这套课程需要**两个并列的目录**（不是谁包含谁）：
-
-```text
-你的某个目录/
-├── deepseek-harness/       ← 框架源码（例子的依赖来源）
-└── learn-deepseek-harness/ ← 本仓库（课程 + 例子）
-```
-
-因为例子直接 `import` deepseek-harness 里 vendored（内置）的 Cordis 和 `packages/`，所以你得先有一份 deepseek-harness 源码并装好依赖（只需一次）：
+**阶段一（s01-s04）完全自包含**：Cordis 已 vendor（内置）进本仓库的 `vendor/`，你只需要装一次依赖：
 
 ```sh
-git clone https://github.com/deepseek-ai/deepseek-harness.git   # 若你本地已有，跳过这行
-cd deepseek-harness
-pnpm install
+cd learn-deepseek-harness
+npm install
 ```
 
-然后把本仓库放在 `deepseek-harness` 的同级目录（默认约定），用自带的 `run.sh` 一键运行例子：
+然后一键跑例子：
 
 ```sh
 ./run.sh 01-first-plugin
 ```
 
-阶段一（Cordis 地基）的例子无需 API key。`run.sh` 会把你选中的例子**拷贝**进 `deepseek-harness/tmp/` 再运行（和官方 cordis-tutorial 一致）——这一步是必须的，因为 `tsx` 依赖 harness 根目录的 `tsconfig.json` 的 `paths` 把 `@deepseek-ai/*` 解析到源码 `src/`。如果你的 harness 不在 `../deepseek-harness`，用 `DSH_ROOT=/path/to/deepseek-harness ./run.sh 01-first-plugin` 覆盖。
+阶段一的例子无需 API key。
+
+> **阶段二（s05+）** 要写真正的 dsh 工具/seam，例子会 `import` deepseek-harness 的业务包（`dsh-shell`、`dsh-tools`…），那时才需要一份 deepseek-harness 源码（`git clone https://github.com/deepseek-ai/deepseek-harness.git` + `pnpm install`）。到 s05 章会讲。
 
 ## 推荐阅读顺序
 
@@ -137,14 +130,14 @@ pnpm install
 - **独立可运行例子**（`examples/01-first-plugin` ~ `06-seam`）：阶段一（s01-s04）的 Cordis 地基、s05 的「capability seam」（→ `examples/06-seam`）、s08/s12 的「写工具」（→ `examples/05-tool`），都有 `./run.sh <name>` 一键运行的例子，无需 API key。
 - **源码精读章**（s06-s07、s09-s11、s13-s19，另有 s05a/s06a/s07a/s08a/s11a 五篇逐行精读）：这些章讲的是真实 harness 能力（loop/log/tools/adapter/subagent…），它们的「例子」就是**读 `packages/` 里的真实源码**——按 [s00f · 代码阅读顺序](docs/s00f-code-reading-order.md) 逐包追 Definition → Provider → Consumer。
 
-`run.sh` 会把选中的例子拷贝进 `deepseek-harness/tmp/` 再运行（原因见「先决条件」）。
+`run.sh` 会用本仓库 `vendor/cordis/bin.js` 直接运行例子（自包含，无需 deepseek-harness）。
 
 ## 目录结构
 
 ```
 learn-deepseek-harness/
 ├── README.md                  # 你正在读的入口 + 路线图
-├── run.sh                     # 一键运行例子（拷贝进 harness tmp/ 再跑）
+├── run.sh                     # 一键运行例子（自包含，无需 deepseek-harness）
 ├── docs/                      # 课程正文（s00 地图 + s01-s19 章节 + 5 篇源码精读）
 │   ├── s00-architecture-overview.md
 │   ├── s00d-chapter-order-rationale.md

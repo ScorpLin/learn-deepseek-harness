@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@deepseek-ai/cordis": [
+        "vendor/cordis/src/index.ts"
+      ],
+      "@deepseek-ai/cordis-plugin-loader": [
+        "vendor/loader/src/index.ts"
+      ],
+      "@deepseek-ai/cordis-plugin-include": [
+        "vendor/include/src/index.ts"
+      ],
+      "@deepseek-ai/cosmokit": [
+        "vendor/cosmokit/src/index.ts"
+      ],
+      "@deepseek-ai/schemastery": [
+        "vendor/schemastery/src/index.ts"
+      ]
+    },
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true
+  }
+}
