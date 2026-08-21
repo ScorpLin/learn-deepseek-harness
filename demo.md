@@ -117,6 +117,37 @@ const s17Steps = [
   { label: '或暂停 → paused / 拦阻 → blocked', detail: '不再自动延续', color: '#fbbf24' },
   { label: 'activation 置 disarmed', detail: '不再接纳新轮；resume/fork 需接手方授权（刻意不在持久回放里）', color: '#f87171' },
 ]
+
+const s06Steps = [
+  { label: 'inbox 收到一条用户消息', detail: '输入进入 inbox，唤醒驱动', color: '#38bdf8' },
+  { label: 'turn/start 落日志', detail: '打开一个 turn，先写 turn/start', color: '#a78bfa' },
+  { label: 'preStep：claim 输入 + 组装 prompt', detail: '认领输入 + systemPrompt.assemble 拼分节和工具 schema', color: '#38bdf8' },
+  { label: 'agent/pre-step（waterfall）放行', detail: '监听器可改写消息或 reject，这里放行 enter', color: '#fbbf24' },
+  { label: 'step/start + user/message 落日志', detail: '打开一步，消息写进 log', color: '#38bdf8' },
+  { label: 'buildRequest(deriveMessages()) → llm.stream', detail: '从 log 投影历史，发起模型请求，逐 token 流回', color: '#38bdf8' },
+  { label: 'assistant/chunk* → assistant/message', detail: '每个 chunk 落日志，聚合后写 assistant/message', color: '#34d399' },
+  { label: '若 tool-call → 执行工具 → tool/result', detail: '工具结果写回 log，进入下一步', color: '#fbbf24' },
+  { label: 'step/end → turn/end 落日志', detail: '关 step、关 turn，一个 turn 完成', color: '#34d399' },
+]
+
+const s11Steps = [
+  { label: 'dsh-llm 提供 ctx.llm 服务', detail: 'Definition + Consumer：词汇 + LlmAdapter 抽象类', color: '#a78bfa' },
+  { label: 'llm-deepseek adapter 注册', detail: "registerAdapter(['deepseek'], adapter) 挂进 ctx.llm", color: '#38bdf8' },
+  { label: 'agent-loop 依赖 ctx.llm', detail: '不依赖具体 adapter，只认 ctx.llm 接口', color: '#fbbf24' },
+  { label: 'buildRequest 组装请求', detail: 'Message/ContentBlock 词汇 + deriveMessages 历史', color: '#38bdf8' },
+  { label: 'adapter.stream(options) → chunk 流', detail: 'LlmAdapter 唯一抽象方法，吐 StreamChunk', color: '#38bdf8' },
+  { label: '换 adapter = 改配置', detail: '换 provider 不改 loop（seam 的 provider 可替换）', color: '#34d399' },
+]
+
+const s18Steps = [
+  { label: '模型返回 bash tool/call', detail: '想执行一条命令', color: '#a78bfa' },
+  { label: 'tools/pre-execute 权限门放行', detail: '能力级拒绝：决定「要不要执行」', color: '#38bdf8' },
+  { label: 'ctx.sandbox 解析 per-session 策略', detail: '进程级约束：决定「怎么执行」', color: '#fbbf24' },
+  { label: 'provider 包裹 argv（ConfinedArgv）', detail: 'spawn 前把命令包进沙箱', color: '#38bdf8' },
+  { label: '进程在沙箱里运行', detail: '文件操作受沙箱策略约束', color: '#38bdf8' },
+  { label: '文件操作被拒 → 报告 denied', detail: 'sandbox 报告 file access denied（策略拒绝，非 bug）', color: '#f87171' },
+  { label: '结果返回给模型', detail: '一个执行世界：bash/PTY/LSP 一起受约束', color: '#34d399' },
+]
 </script>
 
 ## s01 · heartbeat（effect 生命周期）
@@ -191,6 +222,25 @@ const s17Steps = [
 
 <ExerciseDemo :steps="s17Steps" :interval="1300" />
 
+## s06 · Agent Loop（turn 时序）
+
+对应 [s06 小作业](/docs/s06-agent-loop)。
+
+<ExerciseDemo :steps="s06Steps" :interval="1300" />
+
+## s11 · LLM Adapter（registerAdapter）
+
+对应 [s11 小作业](/docs/s11-llm-adapter)。
+
+<ExerciseDemo :steps="s11Steps" :interval="1200" />
+
+## s18 · 沙箱与执行世界
+
+对应 [s18 小作业](/docs/s18-sandbox-execution)。
+
+<ExerciseDemo :steps="s18Steps" :interval="1200" />
+
+---
 ---
 
 这些动画是「你脑子里应该有的执行顺序」。做完练习后，再看一遍动画，确认每一步你都能对上号；对不上，说明那一步的机制还没吃透，回正文重读。
