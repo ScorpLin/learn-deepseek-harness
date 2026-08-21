@@ -95,35 +95,49 @@ npm install
 
 ## 课程地图
 
-| 阶段 | 章节 | 主题 | 你会吃透什么 | 源码锚点 |
-|---|---|---|---|---|
-| 0 地图 | s00 | 架构总览 | 全系统地图、profiles/bundles、turn flow 一图流 | `deepseek-harness/docs/architecture.md` |
-| 0 地图 | s00d | 章节顺序理由 | 为什么先 Cordis 后 agent | — |
-| 0 地图 | s00f | 代码阅读顺序 | 每章先开哪些文件 | `vendor/cordis/src/*.ts` |
-| **1 地基** | s01 | Cordis 地基 | 插件/context/effect/fiber 状态机 | `vendor/cordis/src/{context,fiber}.ts` |
-| 1 地基 | s02 | 事件与 waterfall | emit/parallel/serial/waterfall、veto 短路 | `vendor/cordis/src/events.ts` |
-| 1 地基 | s03 | 服务与依赖注入 | Service/inject/ctx.get、依赖驱动加载 | `vendor/cordis/src/{service,registry}.ts` |
-| 1 地基 | s04 | 配置与 Loader | cordis.yml/Config schema/profile/bundle | `vendor/loader/` `packages/boot/` |
-| **2 主干** | s05 | Capability Seam | Definition/Provider/Consumer 三角色 | `packages/shell/` |
-| 2 主干 | s05a | shell seam 源码精读 | 逐文件追 Definition→Provider→Consumer | `packages/shell/` |
-| 2 主干 | s06 | Agent Loop | turn/step/round、一步一模型的时序 | `packages/core/agent-loop/` |
-| 2 主干 | s06a | agent-loop 源码精读 | 逐文件追 turn 循环实现 | `packages/core/agent-loop/` |
-| 2 主干 | s07 | Session Log | 模型可见⟺已记录、deriveMessages | `packages/core/session/` |
-| 2 主干 | s07a | session-log 源码精读 | 逐文件追 log 派生 | `packages/core/session/` |
-| 2 主干 | s08 | Tools | ToolDefinition、pre→execute→post→result 管线 | `packages/core/tools/` |
-| 2 主干 | s08a | tools 管线源码精读 | 逐文件追工具执行管线 | `packages/core/tools/` |
-| 2 主干 | s09 | Prompt Assembly | section 分节、tool schema 注入 | `packages/core/system-prompt/` |
-| **3 动手** | s10 | Scope | 每 agent 注册空间、shadowing | `packages/core/scope/` |
-| 3 动手 | s11 | LLM Adapter | LlmAdapter seam、stream 协议 | `packages/llm/` |
-| 3 动手 | s11a | llm adapter 源码精读 | 逐文件追 adapter 契约 | `packages/llm/llm/` |
-| 3 动手 | s12 | 写一个工具 | defineTool、presentation/execute 全流程 | `packages/tool/*` `packages/fs/` |
-| 3 动手 | s13 | Subagent | 委派 seam、provider 注册表 | `packages/subagent/` |
-| 3 动手 | s14 | Skill | 目录加载、按需注入、catalog | `packages/skill/` |
-| **4 平台** | s15 | Workflow | 多 agent 编排、结构化子进程 | `packages/workflow/` |
-| 4 平台 | s16 | 权限与审批 | tools/pre-execute 门、approval seam、hooks | `packages/interaction/` `packages/hooks/` |
-| 4 平台 | s17 | Goal 与 Plan | 同会话目标、plan mode | `packages/goal/` `packages/plan/` |
-| 4 平台 | s18 | 沙箱与执行世界 | sandbox/fs/shell 共享执行世界 | `packages/sandbox/` `packages/fs/` |
-| 4 平台 | s19 | 扩展与自修改 | extensions、HMR、agent 改自己 | `packages/extensions/` `vendor/hmr/` |
+按四阶段分组，每个章节点进去即可读（`a` 结尾的是对应主章的「源码精读」）。
+
+### 0 · 地图
+
+- [**s00 架构总览**](docs/s00-architecture-overview.md) —— 全系统地图、turn flow 一图流
+- [**s00d 章节顺序理由**](docs/s00d-chapter-order-rationale.md) —— 为什么先 Cordis 后 agent
+- [**s00f 代码阅读顺序**](docs/s00f-code-reading-order.md) —— 每章先开哪些文件
+
+### 1 · 地基（Cordis）
+
+- [**s01 Cordis 地基**](docs/s01-cordis-foundation.md) —— 插件 / effect / fiber 状态机
+- [**s02 事件与 waterfall**](docs/s02-events-and-waterfall.md) —— 五种分发模式 + veto 短路
+- [**s03 服务与依赖注入**](docs/s03-services-and-inject.md) —— Service / inject / 依赖驱动加载
+- [**s04 配置与 Loader**](docs/s04-config-and-loader.md) —— Config schema / HMR
+
+### 2 · 主干
+
+- [**s05 Capability Seam**](docs/s05-capability-seam.md) —— Definition / Provider / Consumer 三角色
+- [**s05a shell seam 精读**](docs/s05a-shell-seam-deep-read.md) —— 逐文件追三角色
+- [**s06 Agent Loop**](docs/s06-agent-loop.md) —— turn / step / round
+- [**s06a agent-loop 精读**](docs/s06a-agent-loop-deep-read.md) —— 逐文件追 turn 循环
+- [**s07 Session Log**](docs/s07-session-log.md) —— 模型可见 ⟺ 已记录
+- [**s07a session-log 精读**](docs/s07a-session-log-deep-read.md) —— 逐文件追 log 派生
+- [**s08 Tools**](docs/s08-tools.md) —— pre→execute→post→result 管线
+- [**s08a tools 管线精读**](docs/s08a-tools-deep-read.md) —— 逐文件追执行管线
+- [**s09 Prompt Assembly**](docs/s09-prompt-assembly.md) —— section 分节 + schema 注入
+
+### 3 · 动手
+
+- [**s10 Scope**](docs/s10-scope.md) —— 每 agent 注册空间 + shadowing
+- [**s11 LLM Adapter**](docs/s11-llm-adapter.md) —— LlmAdapter seam
+- [**s11a llm adapter 精读**](docs/s11a-llm-adapter-deep-read.md) —— 逐文件追 adapter 契约
+- [**s12 写一个工具**](docs/s12-write-a-tool.md) —— defineTool 全流程
+- [**s13 Subagent**](docs/s13-subagent.md) —— 委派 + lineage
+- [**s14 Skill**](docs/s14-skill.md) —— 目录加载 + 按需注入
+
+### 4 · 平台
+
+- [**s15 Workflow**](docs/s15-workflow.md) —— 多 agent 编排
+- [**s16 权限与审批**](docs/s16-permission-approval.md) —— pre-execute 门 + approval
+- [**s17 Goal 与 Plan**](docs/s17-goal-plan.md) —— 同会话目标 + plan mode
+- [**s18 沙箱与执行世界**](docs/s18-sandbox-execution.md) —— sandbox/fs 共享执行世界
+- [**s19 扩展与自修改**](docs/s19-extensions.md) —— extensions + HMR
 
 ## 可运行例子
 
