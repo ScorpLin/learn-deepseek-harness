@@ -5,7 +5,7 @@
 ## 运行
 
 ```sh
-cd /Users/bytedance/github/learn-deepseek-harness
+cd learn-deepseek-harness
 ./run.sh 02-events
 ```
 

@@ -4,11 +4,10 @@
 
 ## 运行
 
-需要一份 `deepseek-harness` checkout（`pnpm install` 过）。把下面路径换成你机器上的实际路径：
+在本仓库根目录（自包含，无需 deepseek-harness）：
 
 ```sh
-cd /Users/bytedance/github/learn-deepseek-harness/examples/01-first-plugin
-node --import tsx /Users/bytedance/github/deepseek-harness/vendor/cordis/bin.js
+./run.sh 01-first-plugin
 ```
 
 预期输出：
