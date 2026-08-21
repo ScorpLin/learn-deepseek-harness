@@ -22,6 +22,7 @@ export default withMermaid(
         { text: '主线 Timeline', link: '/timeline' },
         { text: '四阶段 Layers', link: '/layers' },
         { text: '相邻对比 Compare', link: '/compare' },
+        { text: '演示动画', link: '/demo' },
         { text: 'GitHub 仓库', link: '/docs/s01-cordis-foundation' },
       ],
       sidebar: [
@@ -30,6 +31,7 @@ export default withMermaid(
           { text: '主线 Timeline', link: '/timeline' },
           { text: '四阶段 Layers', link: '/layers' },
           { text: '相邻对比 Compare', link: '/compare' },
+          { text: '小作业演示动画', link: '/demo' },
         ]},
         stage('0 · 地图', [
           ['架构总览 s00', '/docs/s00-architecture-overview'],
@@ -50,7 +52,9 @@ export default withMermaid(
           ['s05 Capability Seam', '/docs/s05-capability-seam'],
           ['s05a shell seam 精读', '/docs/s05a-shell-seam-deep-read'],
           ['s06 Agent Loop', '/docs/s06-agent-loop'],
+          ['s06a agent-loop 精读', '/docs/s06a-agent-loop-deep-read'],
           ['s07 Session Log', '/docs/s07-session-log'],
+          ['s07a session-log 精读', '/docs/s07a-session-log-deep-read'],
           ['s08 Tools', '/docs/s08-tools'],
           ['s09 Prompt Assembly', '/docs/s09-prompt-assembly'],
         ]),
