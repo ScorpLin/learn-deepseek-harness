@@ -78,6 +78,12 @@ harness 的铁律（packages/AGENTS.md）：**从模型的视角写模型契约*
 4. 工具的参数在 `execute` 前经历了什么？（校验）
 5. 描述一个 `ToolExecution` 从模型返回到你看到 `tool/result` 的完整路径。
 
+
+## 小作业
+
+1. **写一个完整工具**：带 `output.schema` + `output.render` + `presentation`（`generic`/`terminal`/`diff` 三选一）。
+   **达标标准**：能说清这三个字段各面向谁（模型 / 用户 / UI）。
+2. 说清「UI 渲染意图是设计的一部分，一开始就定」是什么意思。
 ---
 
 **下一章**：[s13 · Subagent](s13-subagent.md) —— 委派出去一个独立 agent。

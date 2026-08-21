@@ -52,6 +52,13 @@ ctx.systemPrompt.section(() => ({
 4. 为什么过滤工具要用 `ctx.tools.restrict()` 而不是手改 schema？
 5. 「稳定规则」和「运行时状态」为什么要分开组装？
 
+
+## 小作业
+
+1. **用 `ctx.systemPrompt.section()` 加一段带 `order` 的分节**，观察它在组装中的排序。
+   **达标标准**：能默写 section 的 `id / title / content / order` 四字段。
+2. 说清为什么过滤工具要用 `ctx.tools.restrict()` 而不是手改 prompt schema。
+   **达标标准**：能说清「展示、查找、执行」三处对齐。
 ---
 
 **阶段二完成。** 你已经吃透 harness 的「主干」：seam（s05）、loop（s06）、log（s07）、tools（s08）、prompt（s09）。**停下来自己重建**：能画一张 turn flow 时序图，说清「模型可见⟺已记录」，讲清一个 seam 的三角色。

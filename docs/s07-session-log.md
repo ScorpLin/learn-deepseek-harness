@@ -70,6 +70,13 @@ turn/end
 4. `deriveMessages()` 从什么投影出什么？
 5. 哪些产品能力从这条流派生？（至少说出三个）
 
+
+## 小作业
+
+1. **举一个「模型可见但没记录」的反例**，走一遍它为什么违反铁律（模型看到了，但 `deriveMessages()` 从 log 重建不出来）。
+   **达标标准**：能一句话说出「模型可见 ⟺ 已记录」及它的直接推论（加输入 = 加 session event）。
+2. 说清 `assistant/chunk` 和 `assistant/message` 的分工。
+   **达标标准**：能说清「chunk 保真回放、message 供投影」。
 ---
 
 **下一章**：[s08 · Tools](s08-tools.md) —— 模型的「手」，以及它背后那条有守卫的执行管线。

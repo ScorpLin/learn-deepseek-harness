@@ -38,6 +38,11 @@ workflow 脚本编排多个子 agent，结构化子进程强制输出（scoped p
 3. workflow、Ralph、goal 三者的区别？
 4. 结构化子进程靠什么强制输出？
 
+
+## 小作业
+
+1. **设计一个 workflow 的 meta**：`name` / `description` / `phases`。
+   **达标标准**：能区分 workflow（通用 fan-out）、Ralph（fresh-agent 前景循环）、goal（同会话持久目标）。
 ---
 
 **下一章**：[s16 · 权限与审批](s16-permission-approval.md)。

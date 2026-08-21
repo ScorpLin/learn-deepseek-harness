@@ -83,6 +83,7 @@ pnpm install
 3. 读 [docs/s00f-code-reading-order.md](docs/s00f-code-reading-order.md) —— 每章先开哪些文件
 4. 按四个阶段顺序走：`s01-s04 → s05-s09 → s10-s14 → s15-s19`
 5. **每走完一个阶段，停下来，自己重建一遍最小版本再继续**
+6. 每章结尾的 `## 小作业` + 达标标准，动手做——**能默写才算过**（见 [exercises/](exercises/README.md)）
 
 如果读到中间开始模糊，按这个顺序「复位」：
 
@@ -141,6 +142,9 @@ learn-deepseek-harness/
 ├── examples/                  # 每章的可运行最小例子（01-06）
 │   ├── 01-first-plugin/ ... 06-seam/
 │   └── ...
+├── exercises/                 # 小作业：参考答案 + 达标标准说明
+│   ├── README.md
+│   └── answers/
 ├── index.md / timeline.md / layers.md / compare.md   # VitePress 自定义页
 ├── .vitepress/config.ts       # VitePress 配置（侧边栏 + mermaid）
 └── package.json               # npm 脚本（dev/build/preview）

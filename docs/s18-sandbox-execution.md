@@ -34,6 +34,11 @@
 4. `ConfinedArgv` 是什么、谁用？
 5. 换一个 fs provider 到远程沙箱，哪些能力跟着变？
 
+
+## 小作业
+
+1. 解释「**一个执行世界**」怎么让 bash / PTY / LSP 一起搬。
+   **达标标准**：能说清「能力级拒绝（`tools/pre-execute`）」和「进程级约束（`ctx.sandbox` + `ConfinedArgv`）」的层次。
 ---
 
 **下一章**：[s19 · 扩展与自修改](s19-extensions.md)。

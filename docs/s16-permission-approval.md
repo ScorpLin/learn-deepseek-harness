@@ -60,6 +60,11 @@ export function apply(ctx: Context) {
 4. 审批和普通提问的区别？
 5. 为什么「在工具里写 if」不是权限的正确做法？
 
+
+## 小作业
+
+1. **写一个 permission-gate 插件**：监听 `tools/pre-execute`，允许时 `return next()`、拒绝时 `return { kind: 'deny' }`。
+   **达标标准**：能默写「允许调 next()、拒绝 return 短路」这一对，说清它为什么是 s02 的 waterfall 纪律。
 ---
 
 **下一章**：[s17 · Goal 与 Plan](s17-goal-plan.md)。

@@ -33,6 +33,11 @@ s05/s08 里提过 tool 的渐进披露（替换 scoped `ctx.tools.restrict()` �
 4. 「渐进披露」在 skill 上怎么体现？
 5. skill 的三角色分别是？（Definition 是 provider 注册表，Provider 是 local，Consumer 是 catalog/loader 工具）
 
+
+## 小作业
+
+1. **设计一个 skill 目录结构**，写出 `SkillSummary`（目录摘要）和 `SkillDefinition`（完整定义）的区别。
+   **达标标准**：能说清「渐进披露」——目录在会话前缀、内容按需 `inject()`。
 ---
 
 **阶段三完成。** 你已经把机制用起来了：scope（s10）、adapter（s11）、写工具（s12）、subagent（s13）、skill（s14）。**停下来自己重建**：从零写一个带 `presentation` 的最小工具，跑通管线。

@@ -38,6 +38,12 @@
 4. 为什么「换模型 = 改配置，不改 loop」？
 5. `registerAdapter` 对应 s00 表里哪一行？
 
+
+## 小作业
+
+1. **读 `packages/llm/llm-deepseek` 的 adapter**，说出 `Message` / `ContentBlock` / `StreamChunk` 三者的关系。
+   **达标标准**：能说出 `ContentBlock` 的至少三种变体，和 `StreamChunk` 的 `text-delta` 块。
+2. 说清「换模型 = 改配置，不改 loop」建立在 s05 的哪条机制上。
 ---
 
 **下一章**：[s12 · 写一个工具](s12-write-a-tool.md) —— 把 s05+s08 用起来，从零写一个带执行管线的真工具。

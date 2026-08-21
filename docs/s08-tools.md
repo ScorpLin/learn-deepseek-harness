@@ -87,6 +87,15 @@ export function apply(ctx: Context) {
 4. 为什么「注册工具，schema 自动进提示词」是「注册即接入」的体现？
 5. `CallId` 为什么是 branded id，不是裸 string？
 
+
+## 小作业
+
+动手写，先不看 [examples/05-tool](../examples/05-tool/README.md)。
+
+1. **写一个 `defineTool` 工具**，手动 `ctx.tools.execute()` 跑一遍（代替模型）。
+   **达标标准**：能默写 `parameters / output.schema / output.render / execute` 四段。
+2. **加一个 `tools/pre-execute` 监听器返回 `{ kind: 'deny' }`**，看调用如何被拒。
+   **达标标准**：能默写管线四点的顺序和各自场景（pre-execute 权限门 / execute 包裹 / post-execute 变换 / result 只观察）。
 ---
 
 **下一章**：[s09 · Prompt Assembly](s09-prompt-assembly.md) —— 模型的「嘴」，怎么从稳定规则 + 运行时状态拼出输入。

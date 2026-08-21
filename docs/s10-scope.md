@@ -53,6 +53,13 @@ scope 解决两个问题：
 4. 为什么说「作用域不继承到子 agent」？子树行为用什么表达？
 5. lineage 影响可见性吗？
 
+
+## 小作业
+
+1. **写伪代码**演示「作用域内 shadow 全局同名工具」，说清 most-specific-wins。
+   **达标标准**：能区分 shadowing 和 restriction（交集过滤全局集 → 再合并 scope-local）。
+2. 说清「作用域不继承到子 agent」和 lineage 的关系。
+   **达标标准**：能说清 lineage 是数据、不影响可见性。
 ---
 
 **下一章**：[s11 · LLM Adapter](s11-llm-adapter.md) —— 模型怎么接进来，stream 协议长什么样。

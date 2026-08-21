@@ -68,6 +68,15 @@ Consumer 只依赖 Definition 的接口，不依赖具体 Provider。所以：
 4. shell 例子里，Definition/Provider/Consumer 分别是哪三个包？
 5. 「显式 > 隐式」在 `ShellExecRequest` vs `ShellExecSpec` 上怎么体现？
 
+
+## 小作业
+
+动手写，先不看 [examples/06-seam](../examples/06-seam/README.md) 和 [s05a](s05a-shell-seam-deep-read.md)。
+
+1. **写一个最小 seam**：自写一个抽象 `Service` 当 Definition（占 `ctx.<key>`），写**两个** Provider 实现它（比如 `EchoProvider` 和 `ReverseProvider`），写一个 `inject` 该服务的 Consumer。**换 provider 只改 `cordis.yml` 一行，Consumer 不动**。
+   **达标标准**：能默写三角色的职责，说清「为什么换 provider 不改 consumer」。
+2. 说出 `resolve(request): Spec` 为什么是「显式 > 隐式」的落地。
+   **达标标准**：能说清 request（可选字段）和 spec（必填字段）的区别。
 ---
 
 **下一章**：[s06 · Agent Loop](s06-agent-loop.md) —— seam 是零件，loop 是把零件转起来的心脏。

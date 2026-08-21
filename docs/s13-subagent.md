@@ -40,6 +40,12 @@ subagent 是「把大任务拆给独立上下文」的机制。两个关键点�
 4. 「start-time vs runtime 能力拆分」决定什么？
 5. 委派有哪些 provider 方式？（至少说三个）
 
+
+## 小作业
+
+1. 说清 subagent 的 **start-time vs runtime 能力拆分**，以及「作用域不继承」如何保证委派隔离。
+   **达标标准**：能说清 lineage（`delegationDepth`/`subagentDepth`）不影响可见性。
+2. 画出一次委派的谱系（parent → child）。
 ---
 
 **下一章**：[s14 · Skill](s14-skill.md) —— 任务化指令，按需注入。

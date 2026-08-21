@@ -87,6 +87,15 @@ export function apply(ctx: Context) {
 4. 硬依赖和可选依赖分别怎么写？
 5. 为什么自己的服务名要加前缀？
 
+
+## 小作业
+
+动手写，先不看 [examples/03-services](../examples/03-services/README.md)。
+
+1. **写 `GreeterService extends Service`**（`super(ctx, 'greeter')`）+ 一个 `inject: ['greeter']` 的 consumer，跑通 `Hello, world!`。
+   **达标标准**：能默写「`declare module` 加 `ctx.greeter` 类型」+「`super(ctx,'greeter')` 注册」这一对运行时/编译时搭配。
+2. **删掉 provider 那行**再跑，观察 consumer 停在 PENDING、进程静默退出；再写一个 `ctx.get('greeter')` 的可选依赖版。
+   **达标标准**：能说清硬依赖（inject）和可选依赖（ctx.get）在「服务缺失时」的行为差异。
 ---
 
 **下一章**：[s04 · 配置与 Loader](s04-config-and-loader.md) —— `cordis.yml` 的完整形态、`Config` schema、profile/bundle。

@@ -117,6 +117,15 @@ harness 里真实的 waterfall 例子：`agent/request`（插件可替换模型�
 4. 忘写 `next()` 的日志监听器会造成什么后果？
 5. 为什么说 `ctx.on()` 不用手写 removeListener？
 
+
+## 小作业
+
+动手写，先不看 [examples/02-events](../examples/02-events/README.md)。
+
+1. **写一个 emit 事件**（声明 `interface Events`）+ 一个 `ctx.on` 监听器，跑通。
+   **达标标准**：能默写 `declare module` 声明事件名 + 监听器签名的两段。
+2. **写两个 waterfall 监听器**：一个把下游结果 `toUpperCase`（包装），一个在输入含 `blocked` 时直接 return（短路）。分别用 `hello` 和 `blocked words` 跑，**先预测输出再验证**。
+   **达标标准**：能一句话说清「包装 = 调 `next()` 再改返回值」「短路 = return 不调 `next()`」，以及忘写 `next()` 的后果。
 ---
 
 **下一章**：[s03 · 服务与依赖注入](s03-services-and-inject.md) —— `ctx.tools` 是怎么来的，`inject` 怎么让加载顺序自动推导。

@@ -39,6 +39,12 @@ goal 解决「一个任务要跨多轮自动延续」的问题，但把「能不
 4. plan mode 的强制在哪个轴上？
 5. `exit_plan_mode` 的复核是谁做的？
 
+
+## 小作业
+
+1. 说清 goal 的 `active/paused/blocked/complete` 四阶段，以及 **activation（armed/disarmed）** 为什么「刻意不在持久回放里」。
+   **达标标准**：能说清 goal 是「状态不是 scheduler」，session log 仍是真理之源。
+2. 说清 plan mode 的「强制」在哪个独立轴上。
 ---
 
 **下一章**：[s18 · 沙箱与执行世界](s18-sandbox-execution.md)。

@@ -102,6 +102,15 @@ dsh --profile web --dump-config
 4. `!!js` 能在哪些字段用？
 5. HMR 为什么能工作？它依赖前面哪两个机制？
 
+
+## 小作业
+
+动手写，先不看 [examples/04-config](../examples/04-config/README.md)。
+
+1. **写带 `Config` schema 的插件**：`interface Config` + `export const Config: Schema<Config>`（Schemastery），字段 `greeting`（默认 Hello）+ `targets`（默认 ['world']）。
+   **达标标准**：能默写「同名 interface + const 声明合并」这一形态，说清它为什么既是类型又是运行时校验器。
+2. **喂一个坏配置**（`targets: 'not-an-array'`），确认 `ValidationError` + exit 1。
+   **达标标准**：能说清「坏配置响亮失败」和「半初始化启动」的区别。
 ---
 
 **阶段一完成。** 你已经吃透 Cordis 的四个地基：插件/effect（s01）、事件/waterfall（s02）、服务/inject（s03）、配置/loader（s04）。**停下来，自己重建一遍**：写一个 `Service`，挂一个 `ctx.on`，配一个 `Config`，跑通。

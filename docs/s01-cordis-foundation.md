@@ -174,6 +174,15 @@ export function apply(ctx: Context) {
 4. fiber 的五个状态分别是什么？「插件没反应」最可能是哪个状态？
 5. `ctx.effect()` 的 body 和返回的 disposer 分别在什么时候执行？为什么说大部分时候你不用手写它？
 
+
+## 小作业
+
+动手写，**先不看答案**，做完再对照 [examples/01-first-plugin](../examples/01-first-plugin/README.md) 和 [exercises/](../exercises/README.md)。
+
+1. **写一个 heartbeat 插件**：用 `ctx.effect()` 包一个 `setInterval`，返回 `clearInterval` 的 disposer；再写第二个插件用 `ctx.plugin(heartbeat)` 挂它，700ms 后 `dispose()`。观察控制台按顺序出现 `tick`×N、`cleaned up`。
+   **达标标准**：能默写 `ctx.effect` 的「body 返回 disposer」两段，说清 body 何时执行、disposer 何时执行。
+2. **让 `apply` 抛错**，跑一遍，确认进程是「响亮失败」而不是静默跳过。
+   **达标标准**：能说清为什么「插件加载失败必须响亮」是 harness 的原则。
 ---
 
 **下一章**：[s02 · 事件与 waterfall](s02-events-and-waterfall.md) —— 插件之间怎么通信、怎么拦截。

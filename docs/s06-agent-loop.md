@@ -65,6 +65,15 @@ loop 本身是一个插件（`ctx.agentLoop`），实现 `Agent` 接口（`ctx.a
 4. 为什么说「loop 是插件，所以可替换」？这和 s01 的什么思想一致？
 5. 一个被 reject 的首个 claim，log 里会记录什么？为什么？
 
+
+## 小作业
+
+**不看文档**，做这个：
+
+1. **手绘 turn flow 时序图**：从 `turn/start` 到 `turn/end`，写出 `agent/pre-step → step/start → agent/request → llm/stream → assistant/chunk → tool/call → tools/* → step/end` 的完整次序。
+   **达标标准**：画对次序，并标出哪些是**持久 session 事件**、哪些是 **waterfall 活扩展点**。
+2. 用一句话区分 turn / step / round。
+   **达标标准**：能说清 round 为什么「不属于每个 turn 都计数」。
 ---
 
 **下一章**：[s07 · Session Log](s07-session-log.md) —— loop 写的这个 log，为什么是「模型上下文的唯一来源」。
