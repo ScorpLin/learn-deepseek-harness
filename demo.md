@@ -70,6 +70,53 @@ const s16Steps = [
   { label: '若 return next() → 放行', detail: '继续 execute', color: '#34d399' },
   { label: '审批(ask)：走 ctx.approval 由 answerer 回答', detail: '区别于普通提问 ask_user_question', color: '#fbbf24' },
 ]
+
+const s10Steps = [
+  { label: '全局注册工具 greet', detail: '每个 agent 都可见（扁平两层的第一层）', code: 'ctx.tools.register(greet)', color: '#a78bfa' },
+  { label: 'createAgent({ setup }) 打开创建槽', detail: '作用域和 agent 对象已存在，但首个 prompt 未组装', code: 'createAgent({ setup: (ctx) => { ... } })', color: '#38bdf8' },
+  { label: 'setup 里作用域局部注册同名 greet', detail: 'scope-local 在 restriction 过滤之后合并进来', code: 'ctx.tools.register(greetScoped)', color: '#38bdf8' },
+  { label: '名字解析：most-specific-wins', detail: '作用域内同名工具替换全局同名者（shadowing）', color: '#fbbf24' },
+  { label: '调用 greet → 命中作用域版本', detail: '全局版本被遮蔽，本 agent 用作用域定制版', color: '#34d399' },
+  { label: '其它 agent 仍见全局 greet', detail: '隔离：作用域定制不泄漏给别的 agent', color: '#34d399' },
+]
+
+const s13Steps = [
+  { label: '模型调委派工具（tool-subagent）', detail: '父 agent 发起委派，触发配置好的 provider', color: '#38bdf8' },
+  { label: 'provider spawn 独立子 agent', detail: 'fresh 子进程 / 同进程 fork / 其它产品（codex、acp…）', color: '#38bdf8' },
+  { label: 'start-time 能力作为参数传入', detail: '初始 prompt、隔离配置在子 agent 出生时就固定', color: '#a78bfa' },
+  { label: '子 agent 独立上下文运行', detail: '作用域不继承：拿不到父 agent 的 scope-local 注册', color: '#fbbf24' },
+  { label: 'lineage 记录父子事实', detail: 'parentSession / delegationDepth / subagentDepth，从不影响可见性', color: '#a78bfa' },
+  { label: '子 agent 经 tools/result 返回结果', detail: '父 agent 收到 Result，委派结束', color: '#34d399' },
+]
+
+const s14Steps = [
+  { label: '目录摘要 SkillSummary 进入会话前缀', detail: '模型先看到每个 skill 的 name + description（渐进披露第一层）', code: "{ name: 'write-docs', description: '按仓库规范写文档' }", color: '#a78bfa' },
+  { label: '模型判断需要 write-docs', detail: '只按需加载，不全塞进 prompt', color: '#38bdf8' },
+  { label: '模型调 skill 工具（catalog/loader）', detail: '列出 / 加载指定技能', color: '#38bdf8' },
+  { label: 'local provider 加载 SkillDefinition', detail: '完整定义：summary + content 指令正文', color: '#38bdf8' },
+  { label: 'content inject() 进上下文', detail: '走 agent.inject()，按需注入而非常驻', code: 'agent.inject(skill.content)', color: '#fbbf24' },
+  { label: '模型获得完整指令正文', detail: '按 skill 规范执行任务', color: '#34d399' },
+]
+
+const s15Steps = [
+  { label: '模型调 workflow 工具', detail: '传入 meta（name/description/phases）+ 脚本', color: '#38bdf8' },
+  { label: 'worker 线程引擎接收入口', detail: 'ctx.workflowEngine 开始编排', color: '#38bdf8' },
+  { label: 'fan-out：并行派发多个子 agent', detail: '结构化子进程，多路独立工作同时跑', color: '#38bdf8' },
+  { label: '单调工具守卫约束每个子进程', detail: '只能用固定工具集，不能再注册新工具', color: '#f87171' },
+  { label: '各子 agent 经 tools/result 提交最终结果', detail: '结构化输出，而非任意返回', color: '#fbbf24' },
+  { label: 'worker 汇总结构化结果', detail: '收集所有子进程结果，汇总返回', color: '#34d399' },
+  { label: '模型收到汇总结果', detail: 'fan-out 编排走完', color: '#34d399' },
+]
+
+const s17Steps = [
+  { label: '创建 goal（create_goal）', detail: '持久完成目标附在 session 上，进入 active 阶段（是状态，不是 scheduler）', code: 'create_goal({ objective })', color: '#a78bfa' },
+  { label: 'goal activation 置 armed', detail: '进程本地「允许再接纳一轮」权限', color: '#fbbf24' },
+  { label: 'driver 物化一轮 goal round', detail: 'goal-sourced turn：由当前 goal 发起、而非普通用户消息，零到多步', color: '#38bdf8' },
+  { label: '无关人类 turn 不消耗轮数上限', detail: '只有 goal-sourced turn 消耗 goal-round', color: '#fbbf24' },
+  { label: '目标达成 → complete', detail: 'revisioned 阶段迁移，session log 仍是真理之源', color: '#34d399' },
+  { label: '或暂停 → paused / 拦阻 → blocked', detail: '不再自动延续', color: '#fbbf24' },
+  { label: 'activation 置 disarmed', detail: '不再接纳新轮；resume/fork 需接手方授权（刻意不在持久回放里）', color: '#f87171' },
+]
 </script>
 
 ## s01 · heartbeat（effect 生命周期）
@@ -113,6 +160,36 @@ const s16Steps = [
 对应 [s16 小作业](/docs/s16-permission-approval)。
 
 <ExerciseDemo :steps="s16Steps" :interval="1200" />
+
+## s10 · Scope（作用域 shadowing）
+
+对应 [s10 小作业](/docs/s10-scope)。
+
+<ExerciseDemo :steps="s10Steps" :interval="1200" />
+
+## s13 · Subagent（委派与隔离）
+
+对应 [s13 小作业](/docs/s13-subagent)。
+
+<ExerciseDemo :steps="s13Steps" :interval="1200" />
+
+## s14 · Skill（按需加载）
+
+对应 [s14 小作业](/docs/s14-skill)。
+
+<ExerciseDemo :steps="s14Steps" :interval="1200" />
+
+## s15 · Workflow（fan-out 编排）
+
+对应 [s15 小作业](/docs/s15-workflow)。
+
+<ExerciseDemo :steps="s15Steps" :interval="1300" />
+
+## s17 · Goal（生命周期与 activation）
+
+对应 [s17 小作业](/docs/s17-goal-plan)。
+
+<ExerciseDemo :steps="s17Steps" :interval="1300" />
 
 ---
 
