@@ -4,42 +4,9 @@
 
 <AnimatedTimeline />
 
-> 上图是**动态主线**：节点按学习依赖顺序逐个点亮，悬停看细节、点击跳到对应章节。
-> 下面再给一份静态 mermaid 一图流，方便你一眼看全。
+> 上图是**动态主线**：全部节点按学习依赖顺序逐个点亮，悬停看细节、点击跳到对应章节——这一页只有这一个会动的图。
 
-```mermaid
-flowchart TD
-  subgraph S0["0 · 地图"]
-    A["s00 架构总览"] --> B["s00d 顺序理由"] --> C["s00f 阅读顺序"]
-  end
-  subgraph S1["1 · 地基 Cordis"]
-    C --> D["s01 插件/effect"]
-    D --> E["s02 事件/waterfall"]
-    E --> F["s03 服务/inject"]
-    F --> G["s04 配置/loader"]
-  end
-  subgraph S2["2 · 主干"]
-    G --> H["s05 seam"]
-    H --> I["s06 agent loop"]
-    I --> J["s07 session log"]
-    J --> K["s08 tools"]
-    K --> L["s09 prompt"]
-  end
-  subgraph S3["3 · 动手"]
-    L --> M["s10 scope"]
-    M --> N["s11 llm adapter"]
-    N --> O["s12 写工具"]
-    O --> P["s13 subagent"]
-    P --> Q["s14 skill"]
-  end
-  subgraph S4["4 · 平台"]
-    Q --> R["s15 workflow"]
-    R --> S["s16 权限审批"]
-    S --> T["s17 goal/plan"]
-    T --> U["s18 沙箱"]
-    U --> V["s19 扩展"]
-  end
-```
+
 
 ## 每章的「升级」
 
