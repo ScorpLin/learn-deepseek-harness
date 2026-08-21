@@ -2,6 +2,7 @@
 
 四层边界图。每层讲清「学完的标志」和「怎么自查」。
 
+<Reveal>
 ```mermaid
 flowchart LR
   subgraph L1["1 · 地基 s01-s04"]
@@ -22,6 +23,7 @@ flowchart LR
   end
   A --> B --> C --> D
 ```
+</Reveal>
 
 ## 每层的「学完标志」
 
