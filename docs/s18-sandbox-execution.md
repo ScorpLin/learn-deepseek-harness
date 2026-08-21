@@ -24,7 +24,7 @@
 
 - `packages/sandbox/` —— 策略解析 + 进程约束 seam。
 - `packages/fs/` —— 文件系统 seam + 策略。
-- 完整契约见官方 [subsystems/sandbox](../deepseek-harness/docs/subsystems/sandbox.md) 和 [subsystems/filesystem](../deepseek-harness/docs/subsystems/filesystem.md)。
+- 完整契约见官方 [subsystems/sandbox](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/sandbox.md) 和 [subsystems/filesystem](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/filesystem.md)。
 
 ## 自测
 

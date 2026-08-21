@@ -45,4 +45,4 @@ await ctx.loader.create({ name: '@deepseek-ai/cordis-plugin-include', config: { 
 
 1. **先读 README 里的「设计」段落，再读代码** — 每个包的 `README.md` 有「目的 / API / 扩展点」三件套，是比源码更快的入口。
 2. **读 seam 时，按 Definition → Provider → Consumer 顺序** — 先搞清接口契约，再看实现，最后看谁在消费。
-3. **读事件时，回到 [event-producer-consumer](../deepseek-harness/docs/event-producer-consumer.md)** — 官方那份列出每个事件的 producer 和 consumer，是「谁发、谁听」的权威地图。
+3. **读事件时，回到 [event-producer-consumer](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/event-producer-consumer.md)** — 官方那份列出每个事件的 producer 和 consumer，是「谁发、谁听」的权威地图。

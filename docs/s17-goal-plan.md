@@ -29,7 +29,7 @@ goal 解决「一个任务要跨多轮自动延续」的问题，但把「能不
 
 - `packages/goal/` —— 持久目标身份、生命周期快照、激活、变更记录、轮次归属。
 - `packages/plan/` —— `plan/mode` 状态、pending 选择 flush、`exit_plan_mode` 复核弧。
-- 完整契约见官方 [subsystems/goal](../deepseek-harness/docs/subsystems/goal.md) 和 [subsystems/plan](../deepseek-harness/docs/subsystems/plan.md)。
+- 完整契约见官方 [subsystems/goal](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/goal.md) 和 [subsystems/plan](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/plan.md)。
 
 ## 自测
 

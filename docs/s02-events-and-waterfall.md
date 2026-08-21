@@ -65,7 +65,7 @@ export function apply(ctx: Context) {
 | bail | `ctx.bail(...)` | serial 的同步版 |
 | waterfall | `ctx.waterfall(...)` | around-middleware，可包装/短路（见下） |
 
-harness 的每个事件都在官方 [subsystems](../deepseek-harness/docs/subsystems/README.md) 对应页文档化它的模式。
+harness 的每个事件都在官方 [subsystems](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/README.md) 对应页文档化它的模式。
 
 ## waterfall：包装或短路
 
@@ -103,7 +103,7 @@ harness 里真实的 waterfall 例子：`agent/request`（插件可替换模型�
 
 ## 怎么做：跑起来
 
-见 [examples/02-events/](../examples/02-events/)。它把一个 `stats` 服务 + `reporter` 监听器 + 一个 `waterfall-demo` 装进一个 `cordis.yml` 跑。
+见 [examples/02-events/](../examples/02-events/README.md)。它把一个 `stats` 服务 + `reporter` 监听器 + 一个 `waterfall-demo` 装进一个 `cordis.yml` 跑。
 
 ## 读源码
 

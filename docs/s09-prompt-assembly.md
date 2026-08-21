@@ -42,7 +42,7 @@ ctx.systemPrompt.section(() => ({
 ## 读源码
 
 - `packages/core/system-prompt/` —— 分节注册、排序、协作组装。
-- 完整契约见官方 [subsystems/system-prompt](../deepseek-harness/docs/subsystems/system-prompt.md)。
+- 完整契约见官方 [subsystems/system-prompt](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/system-prompt.md)。
 
 ## 自测
 

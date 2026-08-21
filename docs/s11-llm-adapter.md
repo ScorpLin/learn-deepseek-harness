@@ -28,7 +28,7 @@
 
 - `packages/llm/llm/` —— `Message`/流词汇 + adapter seam（Definition + Consumer）。
 - `packages/llm/llm-deepseek/` —— 一个真实 provider 实现（看它怎么把 `StreamChunk` 映射到 DeepSeek API）。
-- 完整契约见官方 [subsystems/llm-streaming](../deepseek-harness/docs/subsystems/llm-streaming.md)。
+- 完整契约见官方 [subsystems/llm-streaming](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/llm-streaming.md)。
 
 ## 自测
 

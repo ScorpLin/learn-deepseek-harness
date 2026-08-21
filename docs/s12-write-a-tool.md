@@ -63,7 +63,7 @@ harness 的铁律（packages/AGENTS.md）：**从模型的视角写模型契约*
 
 ## 权威参考
 
-官方 [cookbook/adding-a-tool](../deepseek-harness/docs/cookbook/adding-a-tool.md) 是工具定义的 source of truth，包含：
+官方 [cookbook/adding-a-tool](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/cookbook/adding-a-tool.md) 是工具定义的 source of truth，包含：
 
 - 完整 `defineTool` 字段；
 - 执行策略与观察点的选择规则（`pre-execute` vs `execute` vs `post-execute` vs `result`，s08 已给速查）；

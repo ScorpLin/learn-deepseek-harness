@@ -1,0 +1,78 @@
+import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
+
+// 侧边栏：按「0 地图 + 四阶段」分组，和 docs/ 里的章节一一对应。
+const stage = (text: string, items: [string, string][], collapsed = false) => ({
+  text,
+  collapsed,
+  items: items.map(([label, link]) => ({ text: label, link })),
+})
+
+export default withMermaid(
+  defineConfig({
+    title: 'Learn DeepSeek Harness',
+    description: '深入浅出吃透 DeepSeek Harness',
+    lang: 'zh-CN',
+    cleanUrls: true,
+    themeConfig: {
+      nav: [
+        { text: '主页', link: '/' },
+        { text: '主线 Timeline', link: '/timeline' },
+        { text: '四阶段 Layers', link: '/layers' },
+        { text: '相邻对比 Compare', link: '/compare' },
+        { text: 'GitHub 仓库', link: '/docs/s01-cordis-foundation' },
+      ],
+      sidebar: [
+        { text: '开始', items: [
+          { text: '首页 / 阅读路线', link: '/' },
+          { text: '主线 Timeline', link: '/timeline' },
+          { text: '四阶段 Layers', link: '/layers' },
+          { text: '相邻对比 Compare', link: '/compare' },
+        ]},
+        stage('0 · 地图', [
+          ['架构总览 s00', '/docs/s00-architecture-overview'],
+          ['章节顺序理由 s00d', '/docs/s00d-chapter-order-rationale'],
+          ['代码阅读顺序 s00f', '/docs/s00f-code-reading-order'],
+          ['术语表 glossary', '/docs/glossary'],
+          ['教学范围', '/docs/teaching-scope'],
+          ['数据结构', '/docs/data-structures'],
+          ['实体关系', '/docs/entity-map'],
+        ]),
+        stage('1 · 地基（Cordis）', [
+          ['s01 Cordis 地基', '/docs/s01-cordis-foundation'],
+          ['s02 事件与 waterfall', '/docs/s02-events-and-waterfall'],
+          ['s03 服务与依赖注入', '/docs/s03-services-and-inject'],
+          ['s04 配置与 Loader', '/docs/s04-config-and-loader'],
+        ]),
+        stage('2 · 主干', [
+          ['s05 Capability Seam', '/docs/s05-capability-seam'],
+          ['s05a shell seam 精读', '/docs/s05a-shell-seam-deep-read'],
+          ['s06 Agent Loop', '/docs/s06-agent-loop'],
+          ['s07 Session Log', '/docs/s07-session-log'],
+          ['s08 Tools', '/docs/s08-tools'],
+          ['s09 Prompt Assembly', '/docs/s09-prompt-assembly'],
+        ]),
+        stage('3 · 动手', [
+          ['s10 Scope', '/docs/s10-scope'],
+          ['s11 LLM Adapter', '/docs/s11-llm-adapter'],
+          ['s12 写一个工具', '/docs/s12-write-a-tool'],
+          ['s13 Subagent', '/docs/s13-subagent'],
+          ['s14 Skill', '/docs/s14-skill'],
+        ]),
+        stage('4 · 平台', [
+          ['s15 Workflow', '/docs/s15-workflow'],
+          ['s16 权限与审批', '/docs/s16-permission-approval'],
+          ['s17 Goal 与 Plan', '/docs/s17-goal-plan'],
+          ['s18 沙箱与执行世界', '/docs/s18-sandbox-execution'],
+          ['s19 扩展与自修改', '/docs/s19-extensions'],
+        ]),
+      ],
+      outline: { level: [2, 3] },
+      socialLinks: [{ icon: 'github', link: 'https://github.com/deepseek-ai/deepseek-harness' }],
+      footer: { message: 'Learn DeepSeek Harness · 教学线', copyright: 'MIT' },
+      lastUpdated: false,
+    },
+    // 让 /docs 里的相对图片/链接也能解析
+    vite: {},
+  }),
+)

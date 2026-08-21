@@ -2,7 +2,7 @@
 
 > **一句话**：一个运行中的 `dsh` 是一棵插件树，由一层层 bundle + patch 叠出来；树的「脊柱」是七个核心服务，树的「心脏」是 agent loop 与 session log。
 
-这一页给你全系统地图，后面的每一章都是这张图上的一小块。**先建立地图，再钻细节**。权威版本见 [deepseek-harness/docs/architecture.md](../deepseek-harness/docs/architecture.md)。
+这一页给你全系统地图，后面的每一章都是这张图上的一小块。**先建立地图，再钻细节**。权威版本见 [deepseek-harness/docs/architecture.md](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/architecture.md)。
 
 ## 第一层：一切皆插件
 

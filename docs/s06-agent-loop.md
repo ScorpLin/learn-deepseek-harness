@@ -12,7 +12,7 @@
 
 ## 一个 turn 的完整时序
 
-来自官方 [architecture](../deepseek-harness/docs/architecture.md#turn-flow)，这里是教学版：
+来自官方 [architecture](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/architecture.md#turn-flow)，这里是教学版：
 
 ```text
 turn/start

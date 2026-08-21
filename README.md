@@ -95,7 +95,7 @@ pnpm install
 
 | 阶段 | 章节 | 主题 | 你会吃透什么 | 源码锚点 |
 |---|---|---|---|---|
-| 0 地图 | s00 | 架构总览 | 全系统地图、profiles/bundles、turn flow 一图流 | [docs/architecture.md](../deepseek-harness/docs/architecture.md) |
+| 0 地图 | s00 | 架构总览 | 全系统地图、profiles/bundles、turn flow 一图流 | [docs/architecture.md](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/architecture.md) |
 | 0 地图 | s00d | 章节顺序理由 | 为什么先 Cordis 后 agent | — |
 | 0 地图 | s00f | 代码阅读顺序 | 每章先开哪些文件 | `vendor/cordis/src/*.ts` |
 | **1 地基** | s01 | Cordis 地基 | 插件/context/effect/fiber 状态机 | `vendor/cordis/src/{context,fiber}.ts` |
@@ -130,19 +130,37 @@ pnpm install
 ```
 learn-deepseek-harness/
 ├── README.md                  # 你正在读的入口 + 路线图
-├── docs/                      # 课程正文（s00 地图 + s01-s19 章节）
+├── run.sh                     # 一键运行例子（拷贝进 harness tmp/ 再跑）
+├── docs/                      # 课程正文（s00 地图 + s01-s19 章节 + s05a 精读）
 │   ├── s00-architecture-overview.md
 │   ├── s00d-chapter-order-rationale.md
 │   ├── s00f-code-reading-order.md
-│   ├── glossary.md
-│   ├── teaching-scope.md
-│   ├── data-structures.md
-│   ├── entity-map.md
-│   └── s01-cordis-foundation.md ... s19-*.md
-└── examples/                  # 每章的可运行最小例子
-    ├── 01-first-plugin/
-    ├── 02-events/
-    └── ...
+│   ├── glossary.md / teaching-scope.md / data-structures.md / entity-map.md
+│   ├── s01-cordis-foundation.md ... s19-extensions.md
+│   └── s05a-shell-seam-deep-read.md
+├── examples/                  # 每章的可运行最小例子（01-06）
+│   ├── 01-first-plugin/ ... 06-seam/
+│   └── ...
+├── index.md / timeline.md / layers.md / compare.md   # VitePress 自定义页
+├── .vitepress/config.ts       # VitePress 配置（侧边栏 + mermaid）
+└── package.json               # npm 脚本（dev/build/preview）
+```
+
+## Web 教学站
+
+仓库带一个 VitePress 站点，把课程投影成可视化视图：
+
+```sh
+npm install       # 首次
+npm run dev       # http://127.0.0.1:5173
+```
+
+三个可视化路由：
+
+- `/timeline` —— 主线：19 章 + 地图，一条 mermaid 流程图看全
+- `/layers` —— 四阶段边界 + 每阶段「学完的标志」
+- `/compare` —— 相邻两章「升级了什么」，卡住时的诊断入口
+
 ```
 
 ## 与官方文档的关系

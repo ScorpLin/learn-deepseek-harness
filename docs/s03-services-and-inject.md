@@ -67,11 +67,11 @@ export function apply(ctx: Context) {
 
 ## 命名
 
-服务名在一个应用里是**扁平命名空间**。自己的服务要加前缀区分（harness 占用了 `tools`、`llm` 这类朴素名字）。官方 [subsystems](../deepseek-harness/docs/subsystems/README.md) 的生成 `cordis-surface` 区列出 harness 注册的每个名字。
+服务名在一个应用里是**扁平命名空间**。自己的服务要加前缀区分（harness 占用了 `tools`、`llm` 这类朴素名字）。官方 [subsystems](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/README.md) 的生成 `cordis-surface` 区列出 harness 注册的每个名字。
 
 ## 怎么做：跑起来
 
-见 [examples/03-services/](../examples/03-services/)。含 `greeter.ts`（provider）和 `consumer.ts`（consumer），并演示：换顺序输出不变、删 provider 后 consumer 停在 PENDING。
+见 [examples/03-services/](../examples/03-services/README.md)。含 `greeter.ts`（provider）和 `consumer.ts`（consumer），并演示：换顺序输出不变、删 provider 后 consumer 停在 PENDING。
 
 ## 读源码
 

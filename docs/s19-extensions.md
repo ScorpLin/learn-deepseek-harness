@@ -25,7 +25,7 @@
 
 - `packages/extensions/` —— 动态 Cordis 插件/包、host/client 激活、审批、运行时检查、生命周期 teardown。
 - `vendor/hmr/` —— 文件 watcher、热替换。
-- 完整契约见官方 [subsystems/extensions](../deepseek-harness/docs/subsystems/extensions.md)。
+- 完整契约见官方 [subsystems/extensions](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/extensions.md)。
 
 ## 自测
 

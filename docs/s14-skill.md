@@ -23,7 +23,7 @@ s05/s08 里提过 tool 的渐进披露（替换 scoped `ctx.tools.restrict()` �
 ## 读源码
 
 - `packages/skill/` —— provider 注册表、local 实现、catalog/loader 工具。
-- 完整定义见官方 [subsystems/skills](../deepseek-harness/docs/subsystems/skills.md)。
+- 完整定义见官方 [subsystems/skills](https://github.com/deepseek-ai/deepseek-harness/blob/main/docs/subsystems/skills.md)。
 
 ## 自测
 
