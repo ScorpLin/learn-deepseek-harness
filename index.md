@@ -11,6 +11,9 @@ hero:
     - theme: alt
       text: 直接看架构地图
       link: /docs/s00-architecture-overview
+    - theme: alt
+      text: GitHub 仓库
+      link: https://github.com/ScorpLin/learn-deepseek-harness
 features:
   - title: 先框架，后 agent
     details: 从 Cordis 地基（插件/事件/服务/配置）开始，而不是从 agent loop 开始——因为 loop 本身也是个插件。

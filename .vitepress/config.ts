@@ -23,7 +23,7 @@ export default withMermaid(
         { text: '四阶段 Layers', link: '/layers' },
         { text: '相邻对比 Compare', link: '/compare' },
         { text: '演示动画', link: '/demo' },
-        { text: 'GitHub 仓库', link: '/docs/s01-cordis-foundation' },
+        { text: 'GitHub 仓库', link: 'https://github.com/ScorpLin/learn-deepseek-harness' },
       ],
       sidebar: [
         { text: '开始', items: [
@@ -76,7 +76,7 @@ export default withMermaid(
         ]),
       ],
       outline: { level: [2, 3] },
-      socialLinks: [{ icon: 'github', link: 'https://github.com/deepseek-ai/deepseek-harness' }],
+      socialLinks: [{ icon: 'github', link: 'https://github.com/ScorpLin/learn-deepseek-harness' }],
       footer: { message: 'Learn DeepSeek Harness · 教学线', copyright: 'MIT' },
       lastUpdated: false,
     },
