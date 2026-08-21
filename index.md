@@ -17,58 +17,36 @@ hero:
     - theme: alt
       text: GitHub 仓库
       link: https://github.com/ScorpLin/learn-deepseek-harness
+features:
+  - title: 先框架，后 agent
+    details: 从 Cordis 地基（插件/事件/服务/配置）开始，而不是从 agent loop 开始——因为 loop 本身也是个插件。
+  - title: 一条主线，四个阶段
+    details: 地图 → 地基 → 主干 → 动手 → 平台。每章「是什么 → 为什么 → 怎么做 → 读源码 → 自测」。
+  - title: 贴近真实源码
+    details: 每章指到 vendor/ 和 packages/ 的具体文件，另有 s05a/s06a/s07a/s08a/s11a 五篇逐行源码精读。
 ---
 
-<div class="roadmap">
-  <p class="roadmap-hint">一条主线，五个阶段 —— 先看总览，再往下走</p>
-  <ol class="roadmap-list">
-    <li class="roadmap-step" style="--c:#94a3b8">
-      <span class="step-dot"></span>
-      <span class="step-num">0</span>
-      <div class="step-body">
-        <a class="step-title" href="/docs/s00-architecture-overview">地图</a>
-        <p class="step-desc">全系统地图 · turn flow 一图流</p>
-      </div>
-    </li>
-    <li class="roadmap-step" style="--c:#38bdf8">
-      <span class="step-dot"></span>
-      <span class="step-num">1</span>
-      <div class="step-body">
-        <a class="step-title" href="/docs/s01-cordis-foundation">地基（Cordis）</a>
-        <p class="step-desc">插件 · 事件 · 服务 · 配置</p>
-      </div>
-    </li>
-    <li class="roadmap-step" style="--c:#a78bfa">
-      <span class="step-dot"></span>
-      <span class="step-num">2</span>
-      <div class="step-body">
-        <a class="step-title" href="/docs/s05-capability-seam">主干</a>
-        <p class="step-desc">seam · loop · log · tools · prompt</p>
-      </div>
-    </li>
-    <li class="roadmap-step featured" style="--c:#f59e0b">
-      <span class="step-dot"></span>
-      <span class="step-num">3</span>
-      <div class="step-body">
-        <a class="step-title" href="/docs/s10-scope">动手</a>
-        <p class="step-desc">scope · adapter · 写工具 · subagent · skill</p>
-      </div>
-      <span class="step-tag">从这里开始动手</span>
-    </li>
-    <li class="roadmap-step" style="--c:#34d399">
-      <span class="step-dot"></span>
-      <span class="step-num">4</span>
-      <div class="step-body">
-        <a class="step-title" href="/docs/s15-workflow">平台</a>
-        <p class="step-desc">workflow · 权限 · goal · 沙箱 · 扩展</p>
-      </div>
-    </li>
-  </ol>
-</div>
+## 三个入口，随你选
 
-## 快速入口
+- **[主线 Timeline](/timeline)** —— 第一次来先看这个：19 章 + 地图，一条线看全。
+- **[四阶段 Layers](/layers)** —— 阶段边界和「每阶段学完能干嘛」。
+- **[相邻对比 Compare](/compare)** —— 读到中间卡住时，看相邻两章「升级了什么」。
 
-- **[主线 Timeline](/timeline)** —— 19 章 + 地图，一条线看全
-- **[四阶段 Layers](/layers)** —— 阶段边界与「学完的标志」
-- **[相邻对比 Compare](/compare)** —— 卡住时看相邻两章升级了什么
-- **[小作业演示动画](/demo)** —— 每个机制的 SVG 流程图动画
+## 一句话模型
+
+> **模型负责推理，harness 给模型一个可工作的环境。**
+
+而 DeepSeek Harness 构建这个环境的方式只有一句话：
+
+> **一切皆插件（everything is a plugin）。**
+
+## 怎么读
+
+1. 从 [s00 架构总览](/docs/s00-architecture-overview) 拿地图
+2. 按 [s00f 代码阅读顺序](/docs/s00f-code-reading-order) 知道先开哪些文件
+3. 走四阶段：`s01-s04 → s05-s09 → s10-s14 → s15-s19`
+4. **每走完一个阶段，停下来自己重建一遍最小版本**
+
+## 可运行例子
+
+阶段一（s01-s04）、s05（capability seam → `examples/06-seam`）和工具章（s08/s12 → `examples/05-tool`）都有 `./run.sh <name>` 一键运行的例子（无需 API key），见仓库 [examples/](examples/01-first-plugin/README.md) 目录。
