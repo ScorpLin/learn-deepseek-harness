@@ -2,6 +2,8 @@
 
 > **一句话**：DeepSeek Harness 的一切都是插件（plugin），而插件就是「一个通过 `apply(ctx)` 声明自己贡献了什么的函数」。先吃透这一句，后面 18 章才有地基。
 
+**先给 Cordis 一个身份**：Cordis 是一个**插件框架（plugin framework）**，已经 vendored 进本仓库的 `vendor/`。它本身只是一个「加载器」，只做三件事——读你的模块、认出它是插件、调 `apply(ctx)` 并管理它的加载/卸载。它不含任何业务；harness 的模型、工具、日志、agent loop 全是挂在它上面的插件。记住「框架薄、插件厚」，后面才不会被「Cordis 到底干了啥」绊住。
+
 ## 开始之前：装一次依赖
 
 阶段一（s01-s04，Cordis 地基）**完全自包含**——Cordis 已经拷进本仓库的 `vendor/` 目录了，你**不需要** deepseek-harness。
@@ -47,9 +49,15 @@ export function apply(ctx: Context) {
 
 这个文件是一个**插件条目列表**。每条 `name` 是模块路径（相对路径或 npm 包名），加载器（Loader）把每个条目挂载起来。
 
-### 三种插件形态
+### 三种插件形态（「形态」是什么意思）
 
-Cordis 接受三种形态，用函数直到你需要暴露服务为止：
+「形态」就是**你怎么写这个插件**。加载器接受三种写法，它们都表示「我是插件」，只是需要表达多少东西不同——按需选最简的：
+
+- **函数**：只导出 `apply(ctx)`，最省事。适合只做点事、不需要名字也不暴露服务的插件（上一节 `hello.ts` 就是）。
+- **对象**：`{ name, apply }`，把名字和 `apply` 捆成一个对象。适合想要个诊断名字、或带点静态元数据时。
+- **类（`Service` 子类）**：`super(ctx, 'myService')` 会往 `ctx` 上注册一个命名服务。适合「暴露能力给别人用」时（s03 详讲）。
+
+关键心智：这三种**写法**最终都被加载器归一化成同一个东西——一个「带 `apply`（和可选 `name`）的插件」。「形态」只是语法糖，不是三种不同的运行时机制。你从函数开始，需要名字就用对象，需要暴露服务才上类：
 
 ```ts
 import { Service, type Context } from '@deepseek-ai/cordis'
@@ -65,6 +73,24 @@ export class MyService extends Service {
   constructor(ctx: Context) { super(ctx, 'myService') }
 }
 ```
+
+## 三个核心原语：Context / Service / Event
+
+Cordis 的一切都从 `apply(ctx)` 进来。`ctx` 是框架塞给你的「总线」——插件在这条总线上提供能力、消费能力、广播信号。整套框架只有三个原语，后面每一章都在用它们：
+
+| 原语 | 是什么 | 解决什么 | 详讲 |
+|---|---|---|---|
+| **Context（上下文）** | 总线 + 作用域：插件接触运行时的唯一通道 | 谁提供、谁消费、怎么接起来 | 本章 |
+| **Service（服务）** | 命名能力：某插件提供、别的插件 `ctx.<key>` 消费 | 点对点「拿到一个能力」 | s03 |
+| **Event（事件）** | 广播通道：`emit` 发出、`on` 监听，双方互不认识 | 点对多点「让多方知道 / 拦截」 | s02 |
+
+三句话记住：
+
+- **Context = 插线板 + 作用域**。`ctx.plugin` / `ctx.on` / `ctx.effect` 往里挂东西，`ctx.greeter` 往外取东西；每挂一个子插件就派生一个子 ctx（`extend`/`isolate`），子继承父、父不被改——这棵树是后面作用域隔离（s10/s13）的物理基础。
+- **Service = 点对点插座**。消费者只 `inject: ['greeter']` 声明「我要这个」，不 import 实现，所以换 provider 不改消费者。
+- **Event = 大喇叭**。`waterfall` 是它的拦截形态：调 `next()` 委托（可包装结果）、不调则短路（veto）。harness 的权限门、审批、请求改写全挂在这。
+
+一条线串起来：插件拿到 `ctx`（总线），用 `Service` 在总线上提供/消费能力，用 `Event` 在总线上广播/拦截信号。
 
 ## 为什么
 
