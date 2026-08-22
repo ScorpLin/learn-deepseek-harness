@@ -97,9 +97,9 @@ dsh --profile web --dump-config
 
 > **这是 dsh 定义的概念，不是上游 Cordis 的**：Cordis 只提供「patch 怎么叠一层」（vendor 里的 include 插件），dsh 在它之上定义「层从哪来、怎么命名」——bundle 是层、profile 是组合方案。`profile` 这个名字在上游 Cordis 里根本不存在。
 
-## HMR（热替换）
+## HMR（Hot Module Replacement，热替换）
 
-因为卸载释放 effect（s01）+ 加载跟随依赖（s03），HMR 能「卸载一个运行中的插件 → 加载新代码」来替换它。`@deepseek-ai/cordis-plugin-hmr` 监听文件，保存即热重载。
+因为卸载释放 effect（s01）+ 加载跟随依赖（s03），HMR（热替换）能「卸载一个运行中的插件 → 加载新代码」来替换它。`@deepseek-ai/cordis-plugin-hmr` 监听文件，保存即热重载。
 
 HMR 本身没发明任何新机制——那个插件只做一件事：监听到保存，就「卸载旧插件、用新代码重载」。剩下的清理（逆序跑 effect）与连带重载（依赖跟随）全是 s01/s03 自动完成的。这正是 effect + 依赖驱动加载两个机制的推论：换零件能热插拔，是因为零件天生设计成「可干净卸下、可重新接上」。这也是为什么前几章是地基。
 
