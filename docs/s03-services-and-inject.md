@@ -60,6 +60,19 @@ export function apply(ctx: Context) {
 
 **为什么重要**：不追踪的话，provider 卸载后消费者会继续调用已失效的实例（悬空引用）。持续追踪 + effect 逆序清理，保证运行中的消费者手里永远只有「当前在跑的 provider」的引用。
 
+**为什么不会 crash**：依赖消失不是「运行时报错」，而是「受控下线」——关键在于卸载的**顺序**。`super(ctx, name)` 最终走到 `vendor/cordis/src/reflect.ts` 的 `provide()`，它返回的清理函数（disposer）**先拆依赖者、再拆自己**：
+
+```ts
+return async () => {
+  delete this.store[key]                              // ① 先把服务从注册表摘掉
+  const fibers = this.notify([name])                  // ② 点名所有依赖它的 fiber，触发它们卸载
+  await Promise.allSettled(fibers.map(fiber => fiber.await()))  // ③ 等依赖者卸载干净
+  delete this.ctx.fiber.store![name]                  // ④ 最后才删 provider 自己的引用
+}
+```
+
+④ 放在最后（源码注释 *ensure self access before dependencies cleanup*）：provider 自己的引用要保留到依赖者清理完成之后，免得依赖者在卸载途中访问不到它。于是消费者从头到尾没有机会「拿着空引用调用」——它调用 provider 的代码都注册成了 effect，卸载时一起撤了。A ← B ← C 这种链也一样：A 卸载 → B 缺依赖也卸载 → C 跟着卸载，一路级联、全部干净；A 回来再一路重建。
+
 **这就是「换 provider 热替换」能成立的原因**：卸载 `dsh-bash-local`、挂一个不同的 `shell` provider——乘客（`inject: ['shell']` 的插件）不用换票：旧车退役先干净下车，新车就位自动重新上车（重新跑 `apply`，换到新实现）。服务名与接口不变，换的只是实现，消费者一行代码不用动。**s05 的 seam 就建立在这一条之上**：接口固定、实现可换、且换得干净。
 
 > **口诀**：`inject` 不是领证，是持续通话——服务断线，依赖者干净下线；服务回来（换了实现也一样），自动重新上线。
@@ -90,7 +103,7 @@ export function apply(ctx: Context) {
 - `vendor/cordis/src/service.ts` —— `Service` 基类，`super(ctx, name)` 的注册机制。
 - `vendor/cordis/src/registry.ts` —— 插件注册表（s01 里 `ctx.registry` 诊断的底层）。
 - `vendor/cordis/src/fiber.ts` 的 `_checkImpl` / `_refresh` —— 上面说的「重新评估」：`_checkImpl` 查单个服务在不在，`_refresh` 把它们拼成 `epoch`（钥匙，含各依赖实例的 uid）。
-- `vendor/cordis/src/reflect.ts` 的 `notify` —— 服务一变时点名复查依赖者，是持续追踪的入口。
+- `vendor/cordis/src/reflect.ts` 的 `provide` / `notify` —— 持续追踪的入口：`provide` 返回的 disposer 先摘服务、再点名依赖者卸载、最后删自己的引用（上面「为什么不会 crash」引的就是这段）。
 
 ## 自测
 
