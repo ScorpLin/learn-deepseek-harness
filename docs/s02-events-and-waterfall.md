@@ -71,6 +71,8 @@ export function apply(ctx: Context) {
 | bail | `ctx.bail(...)` | serial 的同步版 |
 | waterfall | `ctx.waterfall(...)` | around-middleware，可包装/短路（见下） |
 
+> **为什么叫 waterfall（瀑布）**：这五个模式名借自 Node.js 经典异步库 **async.js** 的术语家族——`parallel` / `serial` / `waterfall` 都是它原生提供的控制流函数，再加事件发射器的 `emit` 和 `bail`，老 JS 程序员看到名字就秒懂语义。`waterfall` 尤其贴切：瀑布**从上往下逐级流**，每一级可以**接水再传**（包装返回值），也可以**筑坝截断**（短路）——`next()` 是「放水到下一级」，不调是「截流」。
+
 harness 的每个事件都在官方 `deepseek-harness/docs/subsystems/README.md` 对应页文档化它的模式。
 
 ## waterfall：包装或短路
