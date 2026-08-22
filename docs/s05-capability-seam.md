@@ -4,7 +4,17 @@
 
 ## 是什么
 
-前面四章你已经会了：服务（s03）、依赖注入（s03）、事件（s02）。把这三样拼起来，就是 seam。一个 seam 是**完整的能力**，三个角色缺一不可：
+**`seam` 不是缩写，是完整英文单词「接缝」**——两块布缝合的那条线。这词借自 Michael Feathers 的《Working Effectively with Legacy Code》：seam 是「不修改代码本身就能改变行为的位置」。缝线的比喻很准：拆开缝线、换块布料、再缝上，整件衣服不用动。软件里也一样——Consumer 只对着缝线（Definition 接口）缝，Provider 是布料，**换 provider = 拆线换布，Consumer 一行不改**。
+
+前四章是零件，s05 是第一次把它们拼成完整机器：
+
+| 前四章 | 在 seam 里的位置 |
+|---|---|
+| s01 插件与 effect | 三角色都是插件；Provider「注册即 effect」（挂上 `ctx.<key>`、卸载即移除）是换实现的保障 |
+| s03 服务与 inject | seam 的骨架：Definition 占 `ctx.<key>`、Consumer 用 `inject` 拿服务、Provider 可替换 |
+| s04 配置 | 换 provider 的开关就在 `cordis.yml`：同一个 `ctx.shell`，选 `bash-local` 还是 `bash-sandbox`，配置层决定 |
+
+把这三样拼起来就是一条接缝：**缝线 = 接口契约（Definition），两边 = Provider（缝上实现）与 Consumer（对着缝线使用）**。一个 seam 是一份**完整的能力**，三个角色缺一不可：
 
 | 角色 | 干什么 | 例（shell） |
 |---|---|---|
@@ -13,6 +23,8 @@
 | **Consumer** | inject 服务，使用它，通常是模型工具 | `@deepseek-ai/dsh-tool-bash` |
 
 术语上的精确（官方 glossary）：Definition 是一个 Cordis `Service`——抽象类（如 `ShellExecutor`）或具体注册表（如 `WebRuntime`），**不是 TypeScript `interface`**。角色在各自独立演进时拆成不同包，但一个包也可以拥有多个角色（如 `dsh-llm` 同时拥有 Definition 和 Consumer）。
+
+> s02 的事件也在 seam 里出现（如 `tools/result` 广播工具结果），但那是缝线之间的信号，不是缝线本身——seam 的形状由**服务**（s03）定义。
 
 ## 为什么：一个 provider 的替换，换掉整个产品
 
