@@ -69,24 +69,39 @@ loader 支持 `!!js` 标签，在加载时计算配置值：
     greeting: !!js process.env.DEMO_GREETING ?? 'Hello'
 ```
 
-`!!js` 只在 `config` 和条目的 `disabled` 字段里有效。其它元数据（`name`、`id`、`inject`）保持字面。
+加载时把 `!!js` 后面的表达式**当场求值**——上面这行读环境变量 `DEMO_GREETING`，没设置就用 `'Hello'` 兜底。同一份 `cordis.yml`，换个环境得到不同配置，文件本身一行不用改。
+
+`!!js` 只在 `config` 和条目的 `disabled` 字段里有效。其它元数据（`name`、`id`、`inject`）保持字面。原因是这些字段分两类：`config` 是**数据**（加载后才交给插件用，可以活），`name`/`id`/`inject` 是**结构**（loader 要拿它们搭依赖图，必须静态）——你不可能在插件运行前就动态算出「它依赖谁」。
 
 ## profile 与 bundle（组装的上层）
 
-单条目之上，是 profile 和 bundle（s00 已给地图，这里点到为止）：
+单条目之上，是 profile 和 bundle（s00 已给地图，这里点到为止）。一句话分清身份：**bundle 是「货」，profile 是「单」，运行中的 dsh 是「成品」。**
 
-- **bundle**：一批 Cordis 配置行 + 挂载代码的分发格式，供上层继续 patch。
-- **profile**：命名组合，列它叠加的 bundle + 用户的 `cordis.patch.yml`。
+- **bundle**：一个 npm 包，装着一批配置行 + 挂载代码，打包成可分发、可复用的一块。它在 `package.json` 里声明 `"dsh": { "bundle": { "patch": "./cordis.patch.yml" } }`——「我是一盒套装，配置清单在这份 patch 里」。
+- **profile**：一个命名组合，列它按序叠加的 bundle，再加用户自己的 `cordis.patch.yml`。它落在 `$DSH_HOME/profiles/<name>/` 目录，`dsh.profile` 写死叠哪些 bundle。
 
-运行中的 `dsh` 就是这些层叠出来的插件树。看它：
+harness 内置两套 profile 模板（`packages/boot/app-boot/src/profile.ts`）：
+
+```ts
+web:      ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app'],
+headless: ['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-headless'],
+```
+
+`web` 就是「base 套装（模型/工具/持久化…）+ web-app 套装（网页界面）」按序叠两层。你平时用的 dsh 网页端就是这份单子的成品——`webserver` 那行定端口（默认 3080）、`ui-conversation` 画聊天区、`ui-sidebar` 画侧栏，每一块界面都能在 web-app 套装的 patch 里找到对应行。
+
+层叠顺序：**bundle 按 `dsh.profile` 顺序从下往上叠 → 用户自己的 `cordis.patch.yml` → `--patch` 覆盖层**。像 PS 图层：官方套装在下面，你的改动盖在最上面。看最终成品：
 
 ```sh
 dsh --profile web --dump-config
 ```
 
+> **这是 dsh 定义的概念，不是上游 Cordis 的**：Cordis 只提供「patch 怎么叠一层」（vendor 里的 include 插件），dsh 在它之上定义「层从哪来、怎么命名」——bundle 是层、profile 是组合方案。`profile` 这个名字在上游 Cordis 里根本不存在。
+
 ## HMR（热替换）
 
-因为卸载释放 effect（s01）+ 加载跟随依赖（s03），HMR 能「卸载一个运行中的插件 → 加载新代码」来替换它。`@deepseek-ai/cordis-plugin-hmr` 监听文件，保存即热重载。这正是 effect + 依赖驱动加载两个机制的推论——这也是为什么前几章是地基。
+因为卸载释放 effect（s01）+ 加载跟随依赖（s03），HMR 能「卸载一个运行中的插件 → 加载新代码」来替换它。`@deepseek-ai/cordis-plugin-hmr` 监听文件，保存即热重载。
+
+HMR 本身没发明任何新机制——那个插件只做一件事：监听到保存，就「卸载旧插件、用新代码重载」。剩下的清理（逆序跑 effect）与连带重载（依赖跟随）全是 s01/s03 自动完成的。这正是 effect + 依赖驱动加载两个机制的推论：换零件能热插拔，是因为零件天生设计成「可干净卸下、可重新接上」。这也是为什么前几章是地基。
 
 ## 读源码
 
