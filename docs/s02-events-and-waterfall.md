@@ -105,8 +105,10 @@ const result = await ctx.waterfall(
   'hello',
   async () => 'default',   // 最内层默认函数
 )
-console.log(result)          // HELLO
+console.log(result)          // DEFAULT
 ```
+
+> **注意**：这里默认函数返回 `'default'`，沿链被监听器 1 转大写，输出是 `DEFAULT`。可运行示例 [`waterfall-demo.ts`](../examples/02-events/README.md) 默认值传的是 `'hello'`，所以那里打印 `HELLO`——两处代码不同，输出自然不同，以各自代码为准。
 
 监听器按注册顺序**从外到内串成一条链**：第一个注册的监听器在最外层，`next()` 从外向内逐层委托，最后落到你传进来的默认函数；返回值再沿链从内向外逐层返回。
 
@@ -132,6 +134,7 @@ harness 里真实的 waterfall 例子：`agent/request`（插件可替换模型�
 4. 忘写 `next()` 的日志监听器会造成什么后果？
 5. 为什么说 `ctx.on()` 不用手写 removeListener？
 
+**遇到疑问？** 看 [s02 · 常见疑问汇总](s02-faq.md)。
 
 ## 小作业
 
