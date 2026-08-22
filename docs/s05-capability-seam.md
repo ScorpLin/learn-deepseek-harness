@@ -43,11 +43,19 @@ Consumer 只依赖 Definition 的接口，不依赖具体 Provider。所以：
 
 ## 怎么做：读 canonical 例子 shell
 
-`packages/shell/` 是 seam 的 canonical 例子。按这个顺序读三个包（这是 [code-reading-order](s00f-code-reading-order.md) 里强调的读法）：
+`packages/shell/` 是 seam 的 canonical（标准范例）例子。按这个顺序读三个包（这是 [code-reading-order](s00f-code-reading-order.md) 里强调的读法）。先记下三角色的代码位置（路径相对 **deepseek-harness** 仓库根目录）：
 
-1. **Definition** — `packages/shell/shell/`（`@deepseek-ai/dsh-shell`）：声明 `ctx.shell` 服务、`ShellExecRequest/Spec` 请求类型、`ShellRunResult` 结果类型。
-2. **Provider** — `packages/shell/bash-local/`（`@deepseek-ai/dsh-bash-local`）：实现本地 bash 执行。注意它通过 `ctx.subprocess` 派生进程。
-3. **Consumer** — `packages/shell/tool-bash/`（`@deepseek-ai/dsh-tool-bash`）：`inject: ['shell']`，把 shell 能力包装成模型可调的 `bash` 工具。
+| 角色 | 包（npm 名） | 目录 | 入口文件 |
+|---|---|---|---|
+| **Definition** | `@deepseek-ai/dsh-shell` | `packages/shell/shell/` | `packages/shell/shell/src/index.ts` |
+| **Provider** | `@deepseek-ai/dsh-bash-local` | `packages/shell/bash-local/` | `packages/shell/bash-local/src/index.ts` |
+| **Consumer** | `@deepseek-ai/dsh-tool-bash` | `packages/shell/tool-bash/` | `packages/shell/tool-bash/src/index.ts` |
+
+1. **Definition** — `packages/shell/shell/src/index.ts`：声明 `ctx.shell` 服务、`ShellExecRequest/Spec` 请求类型、`ShellRunResult` 结果类型。
+2. **Provider** — `packages/shell/bash-local/src/index.ts`：实现本地 bash 执行。注意它通过 `ctx.subprocess` 派生进程。
+3. **Consumer** — `packages/shell/tool-bash/src/index.ts`：`inject: ['shell']`，把 shell 能力包装成模型可调的 `bash` 工具。
+
+> `packages/shell/` 下还有同角色的其他实现：`bash-sandbox` / `pwsh-local` / `pwsh-sandbox` 是 Provider，`tool-pwsh` 等是 Consumer——「一个 seam = 三个角色」，角色可以有多个实现，Definition 始终只有一个。
 
 读的时候盯住三件事：
 
