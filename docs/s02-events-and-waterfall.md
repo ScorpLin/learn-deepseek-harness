@@ -31,6 +31,8 @@ export class StatsService extends Service {
 
 注意 `interface Events` 的 `declare module` 合并——和 s01 里给 `Context` 加属性是同一招，这里换成给 `Events` 加事件名。它声明事件名和监听器签名，让 `ctx.emit` / `ctx.on` 全类型化。命名约定 `namespace/action` 让扁平的事件命名空间可读。
 
+`declare module` 是**模块扩充**：你改不了 `node_modules` 里的类型定义，就从外部给库的 `Context` / `Events` 追加成员（同名 interface 自动合并），`declare` 表示纯类型声明、编译后零运行时代码。**什么时候才写**：只在你「新增」时写——新增服务（别人要读 `ctx.xxx`）补 `interface Context`，新增事件名补 `interface Events`；只是订阅已有事件、用别人的服务、做初始化，一个都不用写（下面 `reporter` 就只消费、不 declare）。
+
 监听方：
 
 ```ts
@@ -54,6 +56,8 @@ export function apply(ctx: Context) {
 服务是「点到点调用」，事件是「点到多点广播」。harness 需要后者：一个工具结果要被 UI、日志、telemetry 同时观察，但工具本身不该知道它们存在。事件把「发」和「听」解耦。
 
 更重要的是 **waterfall**：它让一个事件成为「可插拔的决策点」。这是 harness 把「扩展」变成「拦截」的关键机制。
+
+> 别和上面的 `stats` 例子混：那是 `ctx.emit`（**广播**）——发出去就完了，监听器只是旁观、结果改不了。waterfall 是另一种分发模式，监听器是「关卡」，能放行、包装、短路。两者监听写法都是 `ctx.on`，区别在**发射方用哪个方法**（`emit` vs `waterfall`）。
 
 ## 五种分发模式（记住这张表）
 
@@ -97,7 +101,11 @@ export function apply(ctx: Context) {
 }
 ```
 
-发起一次 waterfall 是这样调的——最后一个参数 `next` 就是**最内层的默认值**（没有任何监听器调 `next()` 时才执行）：
+> 这段示例的 `declare module` 只有 `interface Events`、没有 `interface Context`——它只定义了事件契约、没往 ctx 上挂服务（没有 `super(ctx, 'xxx')`）。**加了几样就声明几样**：挂服务补 `Context`，加事件补 `Events`。
+>
+> 两个 `ctx.on` 是**教学拆开**的，分别演示「包装」和「短路」两种动作；真实插件通常合并成一个监听器，或让不同插件各挂一个。同一插件对同一事件挂两个，顺序依赖注册先后，出 bug 难查。
+
+发起一次 waterfall 是这样调的——`ctx.waterfall(事件名, ...载荷, 默认函数)`，发射方只扔载荷 + 留兜底答案，**不关心谁在监听**；最后一个参数 `next` 就是最内层的默认值（没有任何监听器调 `next()` 时才执行）：
 
 ```ts
 const result = await ctx.waterfall(
@@ -133,8 +141,6 @@ harness 里真实的 waterfall 例子：`agent/request`（插件可替换模型�
 3. waterfall 监听器「包装结果」和「短路」分别靠什么动作？
 4. 忘写 `next()` 的日志监听器会造成什么后果？
 5. 为什么说 `ctx.on()` 不用手写 removeListener？
-
-**遇到疑问？** 看 [s02 · 常见疑问汇总](s02-faq.md)。
 
 ## 小作业
 

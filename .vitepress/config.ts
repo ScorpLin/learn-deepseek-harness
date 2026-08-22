@@ -45,7 +45,6 @@ export default withMermaid(
         stage('1 · 地基（Cordis）', [
           ['s01 Cordis 地基', '/docs/s01-cordis-foundation'],
           ['s02 事件与 waterfall', '/docs/s02-events-and-waterfall'],
-          ['s02 常见疑问汇总', '/docs/s02-faq'],
           ['s03 服务与依赖注入', '/docs/s03-services-and-inject'],
           ['s04 配置与 Loader', '/docs/s04-config-and-loader'],
         ]),
