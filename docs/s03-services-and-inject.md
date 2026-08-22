@@ -50,9 +50,17 @@ export function apply(ctx: Context) {
 
 ### 依赖在加载后仍被追踪
 
-`inject` 不是一次性启动检查（领证），而是一条持续通电的线。服务一变，Cordis 的注册表**直接点名**复查依赖它的 fiber（`notify` → `_checkImpl` → 重算 epoch 钥匙），不需要任何插件去监听。钥匙里存的甚至不只是「服务在不在」，还有**提供者实例的 uid**——所以服务中途消失（provider 被卸载或热替换），每个依赖它的插件被**受控卸载**；服务回来（哪怕换了实现）再重新加载。配合 effect 逆序清理，运行中的消费者手里永远只有「当前在跑的 provider」的引用，不存在持有失效引用的窗口期。
+`inject` 不是一次性启动检查（领证），而是一条持续通电的线——**服务一变，依赖它的插件立刻被重新评估**：
 
-**这就是「换 provider 热替换」能成立的原因**：卸载 `dsh-bash-local`、挂一个不同的 `shell` provider——乘客（`inject: ['shell']` 的插件）不用换票：旧车退役先干净下车（effect 清理），新车就位自动重新上车（重新跑 `apply`，换到新实现）。服务名与接口不变，换的只是实现，消费者一行代码不用动。**s05 的 seam 就建立在这一条之上**：接口固定、实现可换、且换得干净。
+- 依赖还在 → 保持运行；
+- 依赖消失（provider 被卸载）→ 受控卸载；
+- 依赖回来 → 重新加载。
+
+评估时 Cordis 记的不只是「服务在不在」，还有「**提供者是谁**」——所以同名服务换了个实现，依赖者也会重启到新实现上，而不是继续攥着旧引用。
+
+**为什么重要**：不追踪的话，provider 卸载后消费者会继续调用已失效的实例（悬空引用）。持续追踪 + effect 逆序清理，保证运行中的消费者手里永远只有「当前在跑的 provider」的引用。
+
+**这就是「换 provider 热替换」能成立的原因**：卸载 `dsh-bash-local`、挂一个不同的 `shell` provider——乘客（`inject: ['shell']` 的插件）不用换票：旧车退役先干净下车，新车就位自动重新上车（重新跑 `apply`，换到新实现）。服务名与接口不变，换的只是实现，消费者一行代码不用动。**s05 的 seam 就建立在这一条之上**：接口固定、实现可换、且换得干净。
 
 > **口诀**：`inject` 不是领证，是持续通话——服务断线，依赖者干净下线；服务回来（换了实现也一样），自动重新上线。
 
@@ -81,7 +89,8 @@ export function apply(ctx: Context) {
 
 - `vendor/cordis/src/service.ts` —— `Service` 基类，`super(ctx, name)` 的注册机制。
 - `vendor/cordis/src/registry.ts` —— 插件注册表（s01 里 `ctx.registry` 诊断的底层）。
-- `vendor/cordis/src/fiber.ts` 里的 `_checkImpl` / `_refresh` —— 依赖就绪 → 激活的判定。
+- `vendor/cordis/src/fiber.ts` 的 `_checkImpl` / `_refresh` —— 上面说的「重新评估」：`_checkImpl` 查单个服务在不在，`_refresh` 把它们拼成 `epoch`（钥匙，含各依赖实例的 uid）。
+- `vendor/cordis/src/reflect.ts` 的 `notify` —— 服务一变时点名复查依赖者，是持续追踪的入口。
 
 ## 自测
 
