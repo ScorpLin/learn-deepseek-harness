@@ -46,13 +46,15 @@ export function apply(ctx: Context) {
 
 `inject` 列出这个插件需要的服务。Cordis 把插件保持在 **PENDING** 直到每个列出的服务都存在，所以 `apply` 里 `ctx.greeter` 保证就绪。**`cordis.yml` 里的顺序无所谓**——依赖，不是文件顺序，决定插件何时启动。
 
-试着把 `cordis.yml` 里 provider 和 consumer 两行互换，输出一样。再删掉 provider，consumer 停在 PENDING，什么都不打印——不崩溃、不半启动。
+`cordis.yml` 只决定「登记」顺序（谁先被 Cordis 看到），不决定「开工」顺序：`apply` 是否执行只问一个问题——依赖齐了没？齐了当场开工；没齐进候场区（PENDING）等，依赖一到位自动激活。所以 provider 和 consumer 两行互换，输出一样；删掉 provider，consumer 停在 PENDING、什么都不打印——不崩溃、不半启动。
 
 ### 依赖在加载后仍被追踪
 
-`inject` 不是一次性启动检查。如果服务中途消失（provider 被卸载或热替换），**每个依赖它的插件也被卸载**，服务回来再加载。配合 effect，这防止运行中的消费者持有已失效服务的引用。
+`inject` 不是一次性启动检查（领证），而是一条持续通电的线。服务一变，Cordis 的注册表**直接点名**复查依赖它的 fiber（`notify` → `_checkImpl` → 重算 epoch 钥匙），不需要任何插件去监听。钥匙里存的甚至不只是「服务在不在」，还有**提供者实例的 uid**——所以服务中途消失（provider 被卸载或热替换），每个依赖它的插件被**受控卸载**；服务回来（哪怕换了实现）再重新加载。配合 effect 逆序清理，运行中的消费者手里永远只有「当前在跑的 provider」的引用，不存在持有失效引用的窗口期。
 
-**这就是「换 provider 热替换」能成立的原因**：卸载 `dsh-bash-local`、挂一个不同的 `shell` provider，每个 `inject: ['shell']` 的插件干净地重启到新实现上。s05 的 seam 建立在这一条之上。
+**这就是「换 provider 热替换」能成立的原因**：卸载 `dsh-bash-local`、挂一个不同的 `shell` provider——乘客（`inject: ['shell']` 的插件）不用换票：旧车退役先干净下车（effect 清理），新车就位自动重新上车（重新跑 `apply`，换到新实现）。服务名与接口不变，换的只是实现，消费者一行代码不用动。**s05 的 seam 就建立在这一条之上**：接口固定、实现可换、且换得干净。
+
+> **口诀**：`inject` 不是领证，是持续通话——服务断线，依赖者干净下线；服务回来（换了实现也一样），自动重新上线。
 
 ## 可选依赖
 
