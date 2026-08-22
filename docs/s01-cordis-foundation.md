@@ -4,6 +4,8 @@
 
 **先给 Cordis 一个身份**：Cordis 是一个**插件框架（plugin framework）**，已经 vendored 进本仓库的 `vendor/`。它本身只是一个「加载器」，只做三件事——读你的模块、认出它是插件、调 `apply(ctx)` 并管理它的加载/卸载。它不含任何业务；harness 的模型、工具、日志、agent loop 全是挂在它上面的插件。记住「框架薄、插件厚」，后面才不会被「Cordis 到底干了啥」绊住。
 
+**全局视角（这一章的术语最后用来干嘛）**：你会密集遇到一串词——Context、Service、Event、fiber、effect、inject……它们现在看着像在空转，但**全是为了搭一个能跑起来的 agent harness**：Context 是总线、Service 提供能力、Event 负责通信与拦截、fiber/effect 管插件的生死。现在只需记住「每块积木干嘛用」，到 s02（事件）、s03（服务）、s05（能力 seam）、s06（agent loop）、s07（session log）会看到它们被一块块拼起来，这些术语会自动串成一张网。
+
 ## 开始之前：装一次依赖
 
 阶段一（s01-s04，Cordis 地基）**完全自包含**——Cordis 已经拷进本仓库的 `vendor/` 目录了，你**不需要** deepseek-harness。
@@ -238,4 +240,4 @@ setTimeout(async () => {
    **达标标准**：能说清为什么「插件加载失败必须响亮」是 harness 的原则。
 ---
 
-**下一章**：[s02 · 事件与 waterfall](s02-events-and-waterfall.md) —— 插件之间怎么通信、怎么拦截。
+**下一章**：[s02 · 事件与 waterfall](s02-events-and-waterfall.md)。到这里你已经会写插件、也见过了三原语；下一章展开其中的 **Event**——插件之间怎么通信、怎么拦截。waterfall 就是后面权限门（s16）、审批、请求改写的底座。
