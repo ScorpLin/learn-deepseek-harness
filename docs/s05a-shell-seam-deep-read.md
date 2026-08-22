@@ -12,6 +12,21 @@
 
 数据流方向：**模型 → tool-bash（Consumer）→ resolve() 成 spec → bash-local（Provider）→ subprocess（另一个 seam）→ 真实进程**。
 
+## 怎么区分三角色：代码指纹
+
+读代码时按信号对号入座，不用背定义：
+
+| 信号 | Definition | Provider | Consumer |
+|---|---|---|---|
+| 类声明 | `abstract class X extends Service` | `class X extends 某抽象类` | 常无类，就是 `apply(ctx)` 函数 |
+| 方法体 | `abstract foo()` **无 `{}`** | `foo() { 真代码 }` **有 `{}`** | 不实现任何东西 |
+| `declare module` | 有（声明 `ctx.<key>` 类型） | 无 | 无 |
+| `inject` | 无 | 有（依赖别的服务干活，如 `['subprocess']`） | 有（`['shell']`） |
+| 对 Definition 的 import | 自己就是 | `import { ShellExecutor }`（非 type，要 extends） | `import type { ... }`（只有类型） |
+| 在 `cordis.yml` 里 | 不直接挂（被 import） | 挂一行 `name: '@deepseek-ai/dsh-bash-local'` | 挂一行 `name: '@deepseek-ai/dsh-tool-bash'` |
+
+三步判读：① 看 `class`——`abstract` 是 Definition、`extends` 抽象类是 Provider、纯 `apply` 函数是 Consumer；② 看方法体——没有 `{}` 是 Definition、带 `{}` 真代码是 Provider；③ 看伸手方向——**被调用的是 Provider，主动调用的是 Consumer**。
+
 ---
 
 ## Role 1：Definition —— 只声明接口，不实现
